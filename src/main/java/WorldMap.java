@@ -1,10 +1,10 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class WorldMap {
 	
 	private int numberOfNodes;
-	private Vector<Vector<Node>> sightseeingLocations;
-	private Vector<Node> mapNodes;
+	private ArrayList<ArrayList<Node>> sightseeingLocations;
+	private ArrayList<Node> mapNodes;
 
 	public WorldMap() {
 
@@ -56,7 +56,7 @@ public class WorldMap {
 			// Check if there is a sightseen location between the nodes
 			for(int i = 0; i < sightseeingLocations.size(); i++)
 			{
-				Vector<Node> pairOfNodes = sightseeingLocations.get(i);
+				ArrayList<Node> pairOfNodes = sightseeingLocations.get(i);
 				
 				Node nodePair1 = pairOfNodes.get(0);
 				Node nodePair2 = pairOfNodes.get(1);
@@ -80,7 +80,7 @@ public class WorldMap {
 		
 		boolean addedLocation = false;
 
-		Vector<Node> pairOfNodes = new Vector<Node>();
+		ArrayList<Node> pairOfNodes = new ArrayList<Node>();
 		pairOfNodes.add(n1);
 		pairOfNodes.add(n2);
 

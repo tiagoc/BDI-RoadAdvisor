@@ -1,7 +1,7 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Node {
-	private Vector<Node> neighborNodes;
+	private ArrayList<Node> neighborNodes;
 	private int xPos;
 	private int yPos;
 

@@ -1,11 +1,9 @@
-import java.util.Vector;
-
-import jadex.commons.future.IFuture;
+import jadex.bdiv3.annotation.Belief;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
 
 /**
- * A simple agent to be used as a basis for own developments.
+ * The Jarvas agent is our main agent and serves as a trip counselor
  */
 @Agent
 public class Jarvas {
