@@ -1,8 +1,10 @@
 import java.util.Random;
 
 import jadex.bdiv3.annotation.Belief;
+import jadex.bdiv3.annotation.Goal;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
+
 
 /**
  * The Jarvas agent is our main agent and serves as a trip counselor
@@ -10,165 +12,190 @@ import jadex.micro.annotation.AgentBody;
 @Agent
 public class Jarvas {
 
-	private WorldMap map;
-	private String timePeriod;
-	private long currentTime;
-	private String weather;
-	private String traffic;
+    private WorldMap map;
+    private String timePeriod;
+    private long currentTime;
+    private String weather;
+    private String traffic;
 
-	/**
-	 * Called when the agent is started.
-	 */
-	@AgentBody
-	public void body() {
-		System.out.println("Hello world!");
-	}
+    /**
+     * @TODO remove and do proper agent body
+     * Body Stub. Called when the agent is started.
+     */
+    @AgentBody
+    public void body() {
+        System.out.println("Hello world!");
+    }
+    
+    
+    // Beliefs
 
-	/* Time Period - "Day" or "Night" */
+    /* Time Period - "Day" or "Night" */
+    @Belief
+    public String getTimePeriod() {
+        return timePeriod;
+    }
 
-	@Belief
-	public String getTimePeriod() {
-		return timePeriod;
-	}
+    @Belief
+    public void setTimePeriod(String timePeriod) {
+        this.timePeriod = timePeriod;
+    }
 
-	@Belief
-	public void setTimePeriod(String timePeriod) {
-		this.timePeriod = timePeriod;
-	}
+    /* Current Time */
+    @Belief
+    public long getCurrentTime() {
+        return currentTime;
+    }
 
-	/* Current Time */
+    @Belief
+    public void setCurrentTime(long currentTime) {
+        this.currentTime = currentTime;
+    }
 
-	@Belief
-	public long getCurrentTime() {
-		return currentTime;
-	}
+    /* Weather */
+    public boolean updateWeather() {
 
-	@Belief
-	public void setCurrentTime(long currentTime) {
-		this.currentTime = currentTime;
-	}
+        Random rand = new Random();
 
-	/* Weather */
+        // 100 is the maximum and 1 is the minimum
+        int n = rand.nextInt(100) + 1;
 
-	public boolean updateWeather() {
-		
-		Random rand = new Random();
+        // Weather Probability
+        int weatherP = 1 / n;
 
-		// 100 is the maximum and 1 is the minimum
-		int n = rand.nextInt(100) + 1;
+        boolean weatherUpdated = false;
 
-		// Weather Probability
-		int weatherP = 1 / n;
+        if (weatherP < 0) {
+            return weatherUpdated;
+        } else if (weatherP < 0.1) {
+            this.weather = "Snow";
+            weatherUpdated = true;
+        } else if (weatherP < 0.2) {
+            this.weather = "Hail";
+            weatherUpdated = true;
+        } else if (weatherP < 0.4) {
+            this.weather = "HighRain";
+            weatherUpdated = true;
+        } else if (weatherP < 0.6) {
+            this.weather = "LightRain";
+            weatherUpdated = true;
+        } else if (weatherP < 0.8) {
+            this.weather = "Cloudy";
+            weatherUpdated = true;
+        } else if (weatherP < 1) {
+            this.weather = "Sunny";
+            weatherUpdated = true;
+        }
 
-		boolean weatherUpdated = false;
+        return weatherUpdated;
+    }
 
-		if (weatherP < 0) {
-			return weatherUpdated;
-		} else if (weatherP < 0.1) {
-			this.weather = "Snow";
-			weatherUpdated = true;
-		}else if (weatherP < 0.2) {
-			this.weather = "Hail";
-			weatherUpdated = true;
-		} else if (weatherP < 0.4) {
-			this.weather = "HighRain";
-			weatherUpdated = true;
-		} else if (weatherP < 0.6) {
-			this.weather = "LightRain";
-			weatherUpdated = true;
-		} else if (weatherP < 0.8) {
-			this.weather = "Cloudy";
-			weatherUpdated = true;
-		} else if (weatherP < 1) {
-			this.weather = "Sunny";
-			weatherUpdated = true;
-		}
+    @Belief
+    public String getWeather() {
+        return this.weather;
+    }
 
-		return weatherUpdated;
-	}
+    @Belief
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
 
-	@Belief
-	public String getWeather() {
-		return this.weather;
-	}
+    /* Traffic */
+    public boolean updateTraffic() {
+        Random rand = new Random();
 
-	@Belief
-	public void setWeather(String weather) {
-		this.weather = weather;
-	}
+        // 100 is the maximum and 1 is the minimum
+        int n = rand.nextInt(100) + 1;
 
-	/* Traffic */
+        // Traffic Probability
+        int trafficP = 1 / n;
 
-	public boolean updateTraffic() {
-		Random rand = new Random();
+        boolean trafficUpdated = false;
 
-		// 100 is the maximum and 1 is the minimum
-		int n = rand.nextInt(100) + 1;
+        if (trafficP < 0) {
+            return trafficUpdated;
+        } else if (trafficP < 0.2) {
+            this.traffic = "None";
+            trafficUpdated = true;
+        } else if (trafficP < 0.4) {
+            this.traffic = "Light";
+            trafficUpdated = true;
+        } else if (trafficP < 0.6) {
+            this.traffic = "Moderate";
+            trafficUpdated = true;
+        } else if (trafficP < 0.8) {
+            this.traffic = "High";
+            trafficUpdated = true;
+        } else if (trafficP < 1) {
+            this.traffic = "Stopped";
+            trafficUpdated = true;
+        }
 
-		// Traffic Probability
-		int trafficP = 1 / n;
+        return trafficUpdated;
+    }
 
-		boolean trafficUpdated = false;
+    /* Traffic */
+    @Belief
+    public String getTraffic() {
+        return this.traffic;
+    }
 
-		if (trafficP < 0) {
-			return trafficUpdated;
-		} else if (trafficP < 0.2) {
-			this.traffic = "None";
-			trafficUpdated = true;
-		} else if (trafficP < 0.4) {
-			this.traffic = "Light";
-			trafficUpdated = true;
-		} else if (trafficP < 0.6) {
-			this.traffic = "Moderate";
-			trafficUpdated = true;
-		} else if (trafficP < 0.8) {
-			this.traffic = "High";
-			trafficUpdated = true;
-		} else if (trafficP < 1) {
-			this.traffic = "Stopped";
-			trafficUpdated = true;
-		}
+    @Belief
+    public void setTraffic(String traffic) {
+        this.traffic = traffic;
+    }
 
-		return trafficUpdated;
-	}
+    /* Sightseeing Locations */
+    @Belief
+    public boolean isSightseeingLocation(int xPos1, int yPos1, int xPos2,
+            int yPos2) {
+        boolean isSightseeingLoc = false;
 
-	/* Traffic */
+        Node n1 = new Node(xPos1, yPos1);
+        Node n2 = new Node(xPos2, yPos2);
 
-	@Belief
-	public String getTraffic() {
-		return this.traffic;
-	}
+        if (this.map.isSightseeingLocation(n1, n2) == true) {
+            isSightseeingLoc = true;
+        }
 
-	@Belief
-	public void setTraffic(String traffic) {
-		this.traffic = traffic;
-	}
+        return isSightseeingLoc;
+    }
 
-	/* Sightseeing Locations */
+    @Belief
+    public void setSightseeingLocation(int xPos1, int yPos1, int xPos2,
+            int yPos2) {
+        Node n1 = new Node(xPos1, yPos1);
+        Node n2 = new Node(xPos2, yPos2);
 
-	@Belief
-	public boolean isSightseeingLocation(int xPos1, int yPos1, int xPos2,
-			int yPos2) {
-		boolean isSightseeingLoc = false;
+        this.map.setSightseeingLocation(n1, n2);
 
-		Node n1 = new Node(xPos1, yPos1);
-		Node n2 = new Node(xPos2, yPos2);
+    }
 
-		if (this.map.isSightseeingLocation(n1, n2) == true) {
-			isSightseeingLoc = true;
-		}
+    
+    // Goals
+    
+    @Goal
+    public class FastestRoute {
 
-		return isSightseeingLoc;
-	}
+        public FastestRoute() {
+        }
 
-	@Belief
-	public void setSightseeingLocation(int xPos1, int yPos1, int xPos2,
-			int yPos2) {
-		Node n1 = new Node(xPos1, yPos1);
-		Node n2 = new Node(xPos2, yPos2);
+    }
 
-		this.map.setSightseeingLocation(n1, n2);
+    @Goal
+    public class VisitMostCities {
 
-	}
+        public VisitMostCities() {
+        }
+
+    }
+
+    @Goal
+    public class MostInterestPointsBetweenNodes {
+
+        public MostInterestPointsBetweenNodes() {
+        }
+
+    }
 
 }
