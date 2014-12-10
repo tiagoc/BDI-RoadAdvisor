@@ -26,8 +26,8 @@ public class Jarvas {
     public void body() {
         System.out.println("Hello world!");
     }
-    
-    
+
+
     // Beliefs
 
     /* Time Period - "Day" or "Night" */
@@ -145,35 +145,35 @@ public class Jarvas {
         this.traffic = traffic;
     }
 
-    /* Sightseeing Locations */
+    /* Interest Points */
     @Belief
-    public boolean isSightseeingLocation(int xPos1, int yPos1, int xPos2,
+    public boolean isInterestPoint(int xPos1, int yPos1, int xPos2,
             int yPos2) {
-        boolean isSightseeingLoc = false;
+        boolean isInterestPoint = false;
 
         Node n1 = new Node(xPos1, yPos1);
         Node n2 = new Node(xPos2, yPos2);
 
-        if (this.map.isSightseeingLocation(n1, n2) == true) {
-            isSightseeingLoc = true;
+        if (this.map.isInterestPoint(n1, n2) == true) {
+        	isInterestPoint = true;
         }
 
-        return isSightseeingLoc;
+        return isInterestPoint;
     }
 
     @Belief
-    public void setSightseeingLocation(int xPos1, int yPos1, int xPos2,
+    public void setInterestPoint(int xPos1, int yPos1, int xPos2,
             int yPos2) {
         Node n1 = new Node(xPos1, yPos1);
         Node n2 = new Node(xPos2, yPos2);
 
-        this.map.setSightseeingLocation(n1, n2);
+        this.map.setInterestPoint(n1, n2);
 
     }
 
-    
+
     // Goals
-    
+
     @Goal
     public class FastestRoute {
 
@@ -196,6 +196,147 @@ public class Jarvas {
         public MostInterestPointsBetweenNodes() {
         }
 
+    }
+
+    @Goal
+    public class LessKilometersTraveled
+    {
+      public LessKilometersTraveled()
+      {
+      }
+
+    }
+
+
+    @Plan
+    public class findFastestPath()
+    {
+      public findFastestPath()
+      {
+      }
+
+      @AgentBody
+      public void body()
+      {
+        agent.adoptPlan(new findFastestPath());
+      }
+
+      @PlanPassed
+      public void passed()
+      {
+        System.out.println("Plan finished successfully.");
+      }
+
+      @PlanAborted
+      public void aborted()
+      {
+        System.out.println("Plan aborted.");
+      }
+
+      @PlanFailed
+      public void failed(Exception e)
+      {
+        System.out.println("Plan failed: "+e);
+      }
+    }
+
+
+    @Plan
+    public class findPathWithMostCities()
+    {
+      public findPathWithMostCities()
+      {
+      }
+
+      @AgentBody
+      public void body()
+      {
+        agent.adoptPlan(new findPathWithMostCities());
+      }
+
+      @PlanPassed
+      public void passed()
+      {
+        System.out.println("Plan finished successfully.");
+      }
+
+      @PlanAborted
+      public void aborted()
+      {
+        System.out.println("Plan aborted.");
+      }
+
+      @PlanFailed
+      public void failed(Exception e)
+      {
+        System.out.println("Plan failed: "+e);
+      }
+    }
+
+
+    @Plan
+    public class findPathWithMostInterestPoints()
+    {
+      public findPathWithMostInterestPoints()
+      {
+      }
+
+      @AgentBody
+      public void body()
+      {
+        agent.adoptPlan(new findPathWithMostInterestPoints());
+      }
+
+      @PlanPassed
+      public void passed()
+      {
+        System.out.println("Plan finished successfully.");
+      }
+
+      @PlanAborted
+      public void aborted()
+      {
+        System.out.println("Plan aborted.");
+      }
+
+      @PlanFailed
+      public void failed(Exception e)
+      {
+        System.out.println("Plan failed: "+e);
+      }
+    }
+
+
+    @Plan
+    public class findShortestPath()
+    {
+      public findShortestPath()
+      {
+      }
+
+      @AgentBody
+      public void body()
+      {
+        agent.adoptPlan(new findShortestPath());
+      }
+
+      @PlanPassed
+      public void passed()
+      {
+        System.out.println("Plan finished successfully.");
+      }
+
+      @PlanAborted
+      public void aborted()
+      {
+        System.out.println("Plan aborted.");
+      }
+
+      @PlanFailed
+      public void failed(Exception e)
+      {
+        System.out.println("Plan failed: "+e);
+      }
     }
 
 }
