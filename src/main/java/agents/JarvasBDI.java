@@ -10,6 +10,7 @@ import jadex.bdiv3.annotation.PlanAborted;
 import jadex.bdiv3.annotation.PlanBody;
 import jadex.bdiv3.annotation.PlanFailed;
 import jadex.bdiv3.annotation.PlanPassed;
+import jadex.bdiv3.annotation.Trigger;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
 import jadex.micro.annotation.Description;
@@ -239,11 +240,12 @@ public class JarvasBDI {
     /*            Plans            */
     /* *************************** */
     
-    @Plan
+    @Plan(trigger=@Trigger(goals=FastestRoute.class))
     public class findFastestPathPlan {
 
         @PlanBody
-        public void FindFastestPathPlanBody() {              
+        public void FindFastestPathPlanBody() {      
+            System.out.println("Testing fastestpath");
         }
 
         @PlanPassed
@@ -262,7 +264,7 @@ public class JarvasBDI {
         }
     }
 
-    @Plan
+    @Plan(trigger=@Trigger(goals=VisitMostCities.class))
     public class findPathWithMostCitiesPlan {
 
         @PlanBody
@@ -286,7 +288,7 @@ public class JarvasBDI {
         }
     }
 
-    @Plan
+    @Plan(trigger=@Trigger(goals=MostInterestPointsBetweenNodes.class))
     public class findPathWithMostInterestPointsPlan {
 
         @PlanBody
@@ -310,7 +312,7 @@ public class JarvasBDI {
         }
     }
 
-    @Plan
+    @Plan(trigger=@Trigger(goals=LessKilometersTraveled.class))
     public class findShortestPathPlan {
 
         @PlanBody
