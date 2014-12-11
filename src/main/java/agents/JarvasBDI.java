@@ -1,16 +1,27 @@
+package agents;
+
+import jadex.bdiv3.BDIAgent;
 import java.util.Random;
 
 import jadex.bdiv3.annotation.Belief;
 import jadex.bdiv3.annotation.Goal;
+import jadex.bdiv3.annotation.Plan;
+import jadex.bdiv3.annotation.PlanAborted;
+import jadex.bdiv3.annotation.PlanBody;
+import jadex.bdiv3.annotation.PlanFailed;
+import jadex.bdiv3.annotation.PlanPassed;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
+import jadex.micro.annotation.Description;
+
 
 
 /**
  * The Jarvas agent is our main agent and serves as a trip counselor
  */
 @Agent
-public class Jarvas {
+@Description("The advisor agent")
+public class JarvasBDI {
 
     private WorldMap map;
     private String timePeriod;
@@ -18,17 +29,26 @@ public class Jarvas {
     private String weather;
     private String traffic;
 
+    @Agent
+    protected BDIAgent agent;
+
     /**
-     * @TODO remove and do proper agent body
-     * Body Stub. Called when the agent is started.
+     * Body of the agent. Called when the agent is started.
      */
     @AgentBody
     public void body() {
         System.out.println("Hello world!");
+        agent.adoptPlan("findFastestPathPlan");
+
     }
+    
+    /* ************************************************************* */
 
 
-    // Beliefs
+    
+    /* *************************** */
+    /*           Beliefs           */
+    /* *************************** */
 
     /* Time Period - "Day" or "Night" */
     @Belief
@@ -155,7 +175,7 @@ public class Jarvas {
         Node n2 = new Node(xPos2, yPos2);
 
         if (this.map.isInterestPoint(n1, n2) == true) {
-        	isInterestPoint = true;
+            isInterestPoint = true;
         }
 
         return isInterestPoint;
@@ -171,9 +191,14 @@ public class Jarvas {
 
     }
 
-
-    // Goals
-
+    /* ************************************************************* */
+    
+    
+    
+    /* *************************** */
+    /*            Goals            */
+    /* *************************** */
+    
     @Goal
     public class FastestRoute {
 
@@ -199,144 +224,119 @@ public class Jarvas {
     }
 
     @Goal
-    public class LessKilometersTraveled
-    {
-      public LessKilometersTraveled()
-      {
-      }
+    public class LessKilometersTraveled {
+
+        public LessKilometersTraveled() {
+        }
 
     }
 
+    /* ************************************************************* */
+    
+    
+    
+    /* *************************** */
+    /*            Plans            */
+    /* *************************** */
+    
+    @Plan
+    public class findFastestPathPlan {
+
+        @PlanBody
+        public void FindFastestPathPlanBody() {              
+        }
+
+        @PlanPassed
+        public void passed() {
+            System.out.println("Plan finished successfully.");
+        }
+
+        @PlanAborted
+        public void aborted() {
+            System.out.println("Plan aborted.");
+        }
+
+        @PlanFailed
+        public void failed(Exception e) {
+            System.out.println("Plan failed: " + e);
+        }
+    }
 
     @Plan
-    public class findFastestPath()
-    {
-      public findFastestPath()
-      {
-      }
+    public class findPathWithMostCitiesPlan {
 
-      @AgentBody
-      public void body()
-      {
-        agent.adoptPlan(new findFastestPath());
-      }
+        @PlanBody
+        public void findPathWithMostCitiesPlanBody() {
 
-      @PlanPassed
-      public void passed()
-      {
-        System.out.println("Plan finished successfully.");
-      }
+        }
 
-      @PlanAborted
-      public void aborted()
-      {
-        System.out.println("Plan aborted.");
-      }
+        @PlanPassed
+        public void passed() {
+            System.out.println("Plan finished successfully.");
+        }
 
-      @PlanFailed
-      public void failed(Exception e)
-      {
-        System.out.println("Plan failed: "+e);
-      }
+        @PlanAborted
+        public void aborted() {
+            System.out.println("Plan aborted.");
+        }
+
+        @PlanFailed
+        public void failed(Exception e) {
+            System.out.println("Plan failed: " + e);
+        }
     }
-
 
     @Plan
-    public class findPathWithMostCities()
-    {
-      public findPathWithMostCities()
-      {
-      }
+    public class findPathWithMostInterestPointsPlan {
 
-      @AgentBody
-      public void body()
-      {
-        agent.adoptPlan(new findPathWithMostCities());
-      }
+        @PlanBody
+        public void findPathWithMostInterestPointsPlanBody() {
 
-      @PlanPassed
-      public void passed()
-      {
-        System.out.println("Plan finished successfully.");
-      }
+        }
 
-      @PlanAborted
-      public void aborted()
-      {
-        System.out.println("Plan aborted.");
-      }
+        @PlanPassed
+        public void passed() {
+            System.out.println("Plan finished successfully.");
+        }
 
-      @PlanFailed
-      public void failed(Exception e)
-      {
-        System.out.println("Plan failed: "+e);
-      }
+        @PlanAborted
+        public void aborted() {
+            System.out.println("Plan aborted.");
+        }
+
+        @PlanFailed
+        public void failed(Exception e) {
+            System.out.println("Plan failed: " + e);
+        }
     }
-
 
     @Plan
-    public class findPathWithMostInterestPoints()
-    {
-      public findPathWithMostInterestPoints()
-      {
-      }
+    public class findShortestPathPlan {
 
-      @AgentBody
-      public void body()
-      {
-        agent.adoptPlan(new findPathWithMostInterestPoints());
-      }
+        @PlanBody
+        public void findShortestPathPlanBody() {
 
-      @PlanPassed
-      public void passed()
-      {
-        System.out.println("Plan finished successfully.");
-      }
+        }
 
-      @PlanAborted
-      public void aborted()
-      {
-        System.out.println("Plan aborted.");
-      }
+        @PlanPassed
+        public void passed() {
+            System.out.println("Plan finished successfully.");
+        }
 
-      @PlanFailed
-      public void failed(Exception e)
-      {
-        System.out.println("Plan failed: "+e);
-      }
+        @PlanAborted
+        public void aborted() {
+            System.out.println("Plan aborted.");
+        }
+
+        @PlanFailed
+        public void failed(Exception e) {
+            System.out.println("Plan failed: " + e);
+        }
     }
+    
+    /* ************************************************************* */
 
-
-    @Plan
-    public class findShortestPath()
-    {
-      public findShortestPath()
-      {
-      }
-
-      @AgentBody
-      public void body()
-      {
-        agent.adoptPlan(new findShortestPath());
-      }
-
-      @PlanPassed
-      public void passed()
-      {
-        System.out.println("Plan finished successfully.");
-      }
-
-      @PlanAborted
-      public void aborted()
-      {
-        System.out.println("Plan aborted.");
-      }
-
-      @PlanFailed
-      public void failed(Exception e)
-      {
-        System.out.println("Plan failed: "+e);
-      }
-    }
-
+    
+    
+    
 }

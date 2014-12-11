@@ -1,3 +1,5 @@
+package agents;
+
 import java.util.ArrayList;
 
 public class WorldMap {
@@ -53,19 +55,16 @@ public class WorldMap {
 		// Check if the nodes are neighbor nodes
 		if(n1.isNeighbourgNode(n2))
 		{
-			// Check if there is a sightseen point between the nodes
-			for(int i = 0; i < interestPoints.size(); i++)
-			{
-				ArrayList<Node> pairOfNodes = interestPoints.get(i);
-				
-				Node nodePair1 = pairOfNodes.get(0);
-				Node nodePair2 = pairOfNodes.get(1);
-				
-				if(((nodePair1.isTheSameAs(n1)) && (nodePair2.isTheSameAs(n2))) || ((nodePair1.isTheSameAs(n2)) && (nodePair2.isTheSameAs(n1))))
-				{
-					interestPoint = true;
-				}
-			}
+                    // Check if there is a sightseen point between the nodes
+                    for (ArrayList<Node> pairOfNodes : interestPoints) {
+                        Node nodePair1 = pairOfNodes.get(0);
+                        Node nodePair2 = pairOfNodes.get(1);
+                        
+                        if(((nodePair1.isTheSameAs(n1)) && (nodePair2.isTheSameAs(n2))) || ((nodePair1.isTheSameAs(n2)) && (nodePair2.isTheSameAs(n1))))
+                        {
+                            interestPoint = true;
+                        }
+                    }
 		}
 		
 		return interestPoint;
