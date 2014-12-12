@@ -1,5 +1,7 @@
 package agents;
 
+import utilities.WorldMap;
+import utilities.Node;
 import jadex.bdiv3.BDIAgent;
 import java.util.Random;
 

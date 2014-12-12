@@ -1,4 +1,4 @@
-package agents;
+package utilities;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class Node {
 	/*
 	 * 
 	 */
-	Node(int x, int y) {
+	public Node(int x, int y) {
 		this.xPos = x;
 		this.yPos = y;
 	}

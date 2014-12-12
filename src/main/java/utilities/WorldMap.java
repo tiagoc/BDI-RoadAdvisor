@@ -1,5 +1,6 @@
-package agents;
+package utilities;
 
+import utilities.Node;
 import java.util.ArrayList;
 
 public class WorldMap {
