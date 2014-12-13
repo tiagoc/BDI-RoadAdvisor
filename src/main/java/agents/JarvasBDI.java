@@ -1,7 +1,6 @@
 package agents;
 
 import utilities.InterestPoints;
-import utilities.Node;
 import jadex.bdiv3.BDIAgent;
 import java.util.Random;
 
@@ -169,9 +168,12 @@ public class JarvasBDI {
     }
 
     /* Interest Points */
+    /*
+    
+        TODO Change to Vertex
+    
     @Belief
-    public boolean isInterestPoint(int xPos1, int yPos1, int xPos2,
-            int yPos2) {
+    public boolean isInterestPoint(int xPos1, int yPos1, int xPos2, int yPos2) {
         boolean isInterestPoint = false;
 
         Node n1 = new Node(xPos1, yPos1);
@@ -192,7 +194,7 @@ public class JarvasBDI {
 
         this.map.setInterestPoint(n1, n2);
 
-    }
+    }*/
 
     /* ************************************************************* */
     
