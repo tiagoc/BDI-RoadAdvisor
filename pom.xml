@@ -72,6 +72,11 @@
 			<version>${jadex.version}</version>
 		</dependency>
 		-->
+	 <dependency>
+	  <groupId>jung</groupId>
+	  <artifactId>jung</artifactId>
+	  <version>1.7.6</version>
+	 </dependency>
 	</dependencies>
     <name>BDI-RoadAdvisor</name>
 </project>
