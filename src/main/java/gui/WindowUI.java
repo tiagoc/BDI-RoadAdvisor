@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -12,21 +10,16 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-
 import utilities.Node;
 import utilities.WorldMap;
-
 import javax.swing.JButton;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
 import javax.swing.JFrame;
 import java.util.ArrayList;
 
 import utilities.InterestPoints;
 
->>>>>>> origin/graph-implementation
 
 
 public class WindowUI {
@@ -47,7 +40,6 @@ public class WindowUI {
                     WindowUI window = new WindowUI();
                     window.frame.setVisible(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -64,7 +56,7 @@ public class WindowUI {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-    	wm = new WorldMap();
+        wm = new WorldMap();
         frame = new JFrame();
         frame.setBounds(100, 100, 822, 388);
         frame.setSize(1000, 700);
@@ -135,65 +127,64 @@ public class WindowUI {
         JLabel lblTrnsito = new JLabel("Traffic");
         String[] trafficStrings = {"None", "Light", "Moderate", "High", "Stopped"};
         JComboBox<Object> comboBox_Traffic = new JComboBox<Object>(trafficStrings);
-        
+
         JButton btnAddRoad = new JButton("Add Road");
         btnAddRoad.addActionListener(new ActionListener() {
-        	@Override
-        	public void actionPerformed(ActionEvent e) {
-        		
-        		((MapPanel) panel_4).choosePoints();
-        		update();
-        		
-        	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ((MapPanel) panel_4).choosePoints();
+                update();
+
+            }
         });
-  
-        
+
         JButton btnAddInterestPoint = new JButton("Add Interest Point");
 
         GroupLayout gl_panel_3 = new GroupLayout(panel_3);
         gl_panel_3.setHorizontalGroup(
-        	gl_panel_3.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_panel_3.createSequentialGroup()
-        			.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_panel_3.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(lblTimePeriod))
-        				.addComponent(rdbtnDay)
-        				.addComponent(rdbtnNight)
-        				.addGroup(gl_panel_3.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(lbl_Wheather))
-        				.addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(gl_panel_3.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(lblTrnsito))
-        				.addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnAddRoad)
-        				.addComponent(btnAddInterestPoint))
-        			.addContainerGap(26, Short.MAX_VALUE))
+                gl_panel_3.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_panel_3.createSequentialGroup()
+                        .addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+                                .addGroup(gl_panel_3.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(lblTimePeriod))
+                                .addComponent(rdbtnDay)
+                                .addComponent(rdbtnNight)
+                                .addGroup(gl_panel_3.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(lbl_Wheather))
+                                .addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(gl_panel_3.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(lblTrnsito))
+                                .addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAddRoad)
+                                .addComponent(btnAddInterestPoint))
+                        .addContainerGap(26, Short.MAX_VALUE))
         );
         gl_panel_3.setVerticalGroup(
-        	gl_panel_3.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
-        			.addGap(131)
-        			.addComponent(lblTimePeriod)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(rdbtnDay)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(rdbtnNight)
-        			.addGap(30)
-        			.addComponent(lbl_Wheather)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
-        			.addComponent(lblTrnsito)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addGap(125)
-        			.addComponent(btnAddRoad)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(btnAddInterestPoint)
-        			.addContainerGap(124, Short.MAX_VALUE))
+                gl_panel_3.createParallelGroup(Alignment.TRAILING)
+                .addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
+                        .addGap(131)
+                        .addComponent(lblTimePeriod)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(rdbtnDay)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(rdbtnNight)
+                        .addGap(30)
+                        .addComponent(lbl_Wheather)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(ComponentPlacement.UNRELATED)
+                        .addComponent(lblTrnsito)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(125)
+                        .addComponent(btnAddRoad)
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addComponent(btnAddInterestPoint)
+                        .addContainerGap(124, Short.MAX_VALUE))
         );
         panel_3.setLayout(gl_panel_3);
 
@@ -209,74 +200,46 @@ public class WindowUI {
                 .addGap(0, 658, Short.MAX_VALUE)
         );
         panel_4.setLayout(gl_panel_4);
-        
+
         /* TODO */
         ArrayList<Node> mapNodes = getMapNodes();
         int numberOfNodes = getNumberOfNodes();
-        
-		if(mapNodes.size() != numberOfNodes)
-		{
-			System.out.print("Something went wrong with the nodes!");
-			System.out.print("Number of nodes: ");
-			System.out.print(numberOfNodes);
-			System.out.print("mapNodes size: ");
-			System.out.print(mapNodes.size());
-			
-			wm.setNumberOfNodes(numberOfNodes);
-			wm.setMapNodes(mapNodes);
-		}
-		else
-		{
-			System.out.print("Number of nodes: ");
-			System.out.print(numberOfNodes);
-		}
-		/* TODO */
+
+        if (mapNodes.size() != numberOfNodes) {
+            System.out.print("Something went wrong with the nodes!");
+            System.out.print("Number of nodes: ");
+            System.out.print(numberOfNodes);
+            System.out.print("mapNodes size: ");
+            System.out.print(mapNodes.size());
+
+            wm.setNumberOfNodes(numberOfNodes);
+            wm.setMapNodes(mapNodes);
+        } else {
+            System.out.print("Number of nodes: ");
+            System.out.print(numberOfNodes);
+        }
+        /* TODO */
 
     }
-    
-    public void update()
-    {
-    	// Update map nodes
-    	wm.setMapNodes(((MapPanel) panel_4).updateMapPoints());
-    	wm.setNumberOfNodes(((MapPanel) panel_4).updateNumberOfNodes());
-    }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
+    public void update() {
+        // Update map nodes
+        wm.setMapNodes(((MapPanel) panel_4).updateMapPoints());
+        wm.setNumberOfNodes(((MapPanel) panel_4).updateNumberOfNodes());
+    }
+
     /* Get initial number of nodes */
-=======
->>>>>>> origin/graph-implementation
     public ArrayList<Node> getMapNodes() {
         ArrayList<Node> mapNodes = ((MapPanel) panel_4).getImagePoints();
 
         return mapNodes;
     }
 
-<<<<<<< HEAD
     /* Get initial number of nodes */
-=======
->>>>>>> origin/graph-implementation
     public int getNumberOfNodes() {
         int numberOfNodes = ((MapPanel) panel_4).getNumberOfPoints();
 
         return numberOfNodes;
-=======
-    
-    /* Get initial number of nodes */
-    public ArrayList<Node> getMapNodes()
-    {
-    	ArrayList<Node> mapNodes = ((MapPanel) panel_4).getImagePoints();
-    	
-    	return mapNodes;
-    }
-    
-    /* Get initial number of nodes */
-    public int getNumberOfNodes()
-    {
-    	int numberOfNodes = ((MapPanel) panel_4).getNumberOfPoints();
-    	
-    	return numberOfNodes;
->>>>>>> 598dbf19e1f2561814c3ac3ec7c7a06bceb9fb5f
     }
 
 }
