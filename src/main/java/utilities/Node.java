@@ -43,6 +43,14 @@ public class Node {
 		this.yPos = y;
 	}
 	
+
+	/*
+	 * 
+	 */
+	public ArrayList<Node> getNeighborgNodes() {
+		return this.neighborNodes;
+	}
+	
 	/*
 	 * 
 	 */

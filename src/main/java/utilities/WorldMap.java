@@ -9,22 +9,27 @@ public class WorldMap {
 	
 	private int numberOfNodes;
 	private ArrayList<ArrayList<Node>> interestPoints;
-	private ArrayList<Node> mapNodes;
-	private WindowUI w; 
+	private ArrayList<Node> mapNodes; 
 
 	public WorldMap() {
-
-		// TODO - Create nodes and neighbor nodes of each node and set interest points
-		numberOfNodes = w.getNumberOfNodes();
-		
-		if(mapNodes.size() != numberOfNodes)
-		{
-			System.out.print("Something went wrong with the nodes!");
-		}
-		else
-		{
-			mapNodes = w.getMapNodes();
-		}
+		numberOfNodes = 0;
+		interestPoints = null;
+		mapNodes = null;
+	}
+	
+	public void setNumberOfNodes(int num)
+	{
+		this.numberOfNodes = num;
+	}
+	
+	public void setMapNodes(ArrayList<Node> m)
+	{
+		this.mapNodes = m;
+	}
+	
+	public void setInterestPoints(ArrayList<ArrayList<Node>> iP)
+	{
+		this.interestPoints = iP;
 	}
 	
 	/*
