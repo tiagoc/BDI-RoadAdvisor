@@ -1,6 +1,8 @@
 package utilities;
 
 import utilities.Node;
+import gui.WindowUI;
+
 import java.util.ArrayList;
 
 public class WorldMap {
@@ -8,12 +10,21 @@ public class WorldMap {
 	private int numberOfNodes;
 	private ArrayList<ArrayList<Node>> interestPoints;
 	private ArrayList<Node> mapNodes;
+	private WindowUI w; 
 
 	public WorldMap() {
 
-		numberOfNodes = 0;
 		// TODO - Create nodes and neighbor nodes of each node and set interest points
+		numberOfNodes = w.getNumberOfNodes();
 		
+		if(mapNodes.size() != numberOfNodes)
+		{
+			System.out.print("Something went wrong with the nodes!");
+		}
+		else
+		{
+			mapNodes = w.getMapNodes();
+		}
 	}
 	
 	/*

@@ -5,8 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -17,9 +16,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+import utilities.Node;
+
+
 public class WindowUI {
 
     private JFrame frame;
+    public JPanel panel_4;
 
     /**
      * Launch the application.
@@ -157,12 +160,7 @@ public class WindowUI {
         );
         panel_3.setLayout(gl_panel_3);
 
-        JPanel panel_4 = new JPanel();
-        panel_4.setSize(760, 611);
-        panel_4.setBackground(Color.black);
-        Dimension MapDimension = new Dimension();
-        MapDimension.setSize(760, 611);
-        panel_4.setMaximumSize(MapDimension);
+        panel_4 = new MapPanel();
         frame.getContentPane().add(panel_4, BorderLayout.CENTER);
         GroupLayout gl_panel_4 = new GroupLayout(panel_4);
         gl_panel_4.setHorizontalGroup(
@@ -174,6 +172,40 @@ public class WindowUI {
                 .addGap(0, 658, Short.MAX_VALUE)
         );
         panel_4.setLayout(gl_panel_4);
+        
+        /* TODO TESTE */
+        ArrayList<Node> mapNodes = getMapNodes();
+        int numberOfNodes = getNumberOfNodes();
+        
+		if(mapNodes.size() != numberOfNodes)
+		{
+			System.out.print("Something went wrong with the nodes!");
+			System.out.print("Number of nodes: ");
+			System.out.print(numberOfNodes);
+			System.out.print("mapNodes size: ");
+			System.out.print(mapNodes.size());
+		}
+		else
+		{
+			System.out.print("Number of nodes: ");
+			System.out.print(numberOfNodes);
+		}
+		/* TODO TESTE */
 
     }
+    
+    public ArrayList<Node> getMapNodes()
+    {
+    	ArrayList<Node> mapNodes = ((MapPanel) panel_4).getImagePoints();
+    	
+    	return mapNodes;
+    }
+    
+    public int getNumberOfNodes()
+    {
+    	int numberOfNodes = ((MapPanel) panel_4).getNumberOfPoints();
+    	
+    	return numberOfNodes;
+    }
+  
 }
