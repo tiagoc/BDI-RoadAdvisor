@@ -20,11 +20,9 @@ import utilities.Node;
 import utilities.WorldMap;
 
 import javax.swing.JButton;
-import javax.swing.AbstractAction;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.Action;
 
 import java.awt.event.ActionListener;
 
@@ -47,7 +45,6 @@ public class WindowUI {
                     WindowUI window = new WindowUI();
                     window.frame.setVisible(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });

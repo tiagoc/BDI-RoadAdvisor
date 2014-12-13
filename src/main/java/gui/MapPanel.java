@@ -30,7 +30,7 @@ public class MapPanel extends JPanel{
 
     public MapPanel() {
        try {                
-    	   mapImage = ImageIO.read(new File("mapa.png"));
+    	   mapImage = ImageIO.read(new File("resources/mapa.png"));
     	   numberOfPoints = 0;
     	   numberOfClicks = 0;
     	   mapNodes = new ArrayList<Node>(); 
