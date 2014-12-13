@@ -1,7 +1,6 @@
 package agents;
 
-import utilities.WorldMap;
-import utilities.Node;
+import utilities.InterestPoints;
 import jadex.bdiv3.BDIAgent;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ import jadex.micro.annotation.Description;
 @Description("The advisor agent")
 public class JarvasBDI {
 
-    private WorldMap map;
+    private InterestPoints map;
     private String timePeriod;
     private long currentTime;
     private String weather;
@@ -169,9 +168,12 @@ public class JarvasBDI {
     }
 
     /* Interest Points */
+    /*
+    
+        TODO Change to Vertex
+    
     @Belief
-    public boolean isInterestPoint(int xPos1, int yPos1, int xPos2,
-            int yPos2) {
+    public boolean isInterestPoint(int xPos1, int yPos1, int xPos2, int yPos2) {
         boolean isInterestPoint = false;
 
         Node n1 = new Node(xPos1, yPos1);
@@ -192,7 +194,7 @@ public class JarvasBDI {
 
         this.map.setInterestPoint(n1, n2);
 
-    }
+    }*/
 
     /* ************************************************************* */
     

@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -16,8 +13,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+=======
+import javax.swing.JFrame;
+import java.util.ArrayList;
+
+import utilities.InterestPoints;
+
+>>>>>>> origin/graph-implementation
 
 import utilities.Node;
 import utilities.WorldMap;
@@ -26,7 +31,7 @@ public class WindowUI {
 
     private JFrame frame;
     public JPanel panel_4;
-    public WorldMap wm;
+    public InterestPoints wm;
 
     /**
      * Launch the application.
@@ -228,14 +233,20 @@ public class WindowUI {
         wm.setNumberOfNodes(((MapPanel) panel_4).updateNumberOfNodes());
     }
 
+<<<<<<< HEAD
     /* Get initial number of nodes */
+=======
+>>>>>>> origin/graph-implementation
     public ArrayList<Node> getMapNodes() {
         ArrayList<Node> mapNodes = ((MapPanel) panel_4).getImagePoints();
 
         return mapNodes;
     }
 
+<<<<<<< HEAD
     /* Get initial number of nodes */
+=======
+>>>>>>> origin/graph-implementation
     public int getNumberOfNodes() {
         int numberOfNodes = ((MapPanel) panel_4).getNumberOfPoints();
 
