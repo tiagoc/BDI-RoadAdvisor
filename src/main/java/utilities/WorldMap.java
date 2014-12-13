@@ -1,113 +1,133 @@
 package utilities;
 
-
+import java.util.PriorityQueue;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
+/**
+ * Some third party code from
+ * http://www.algolist.com/code/java/Dijkstra's_algorithm
+ */
+/**
+ * Vertex implementation
+ */
+class Vertex implements Comparable<Vertex> {
+
+    public final String name;
+    public Edge[] adjacencies;
+    public double minDistance = Double.POSITIVE_INFINITY;
+    public Vertex previous;
+
+    public Vertex(String argName) {
+        name = argName;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public int compareTo(Vertex other) {
+        return Double.compare(minDistance, other.minDistance);
+    }
+}
+
+/**
+ * Weighted Edge implementation
+ */
+class Edge {
+
+    public final Vertex target;
+    public final double weight;
+
+    public Edge(Vertex argTarget, double argWeight) {
+        target = argTarget;
+        weight = argWeight;
+    }
+}
+
+
+/*
+ * World Map
+ */
 public class WorldMap {
-	
-	private int numberOfNodes;
-	private ArrayList<ArrayList<Node>> interestPoints;
-	private ArrayList<Node> mapNodes; 
 
-	public WorldMap() {
-		numberOfNodes = 0;
-		interestPoints = null;
-		mapNodes = null;
-	}
-	
-	public void setNumberOfNodes(int num)
-	{
-		this.numberOfNodes = num;
-	}
-	
-	public void setMapNodes(ArrayList<Node> m)
-	{
-		this.mapNodes = m;
-	}
-	
-	public void setInterestPoints(ArrayList<ArrayList<Node>> iP)
-	{
-		this.interestPoints = iP;
-	}
-	
-	/*
-	 * 
-	 */
-	public void addNodeToMap(Node newNode)
-	{
-		mapNodes.add(newNode);
-		numberOfNodes++;
-	}
+    Vertex[] WorldMapGraph;
 
-	/*
-	 * Returns the number of nodes of the map.
-	 * 
-	 * @return Number of nodes of the map.
-	 */
-	public int numberOfNodes() {
-		return numberOfNodes;
-	}
-	
-	/*
-	 * Returns the number of interest points on the map.
-	 * 
-	 * @return Number of interest points on the map.
-	 */
-	public int numberOfInterestPoints() {
-		return interestPoints.size();
-	}
-	
+    /**
+     * Compute using Djikstra's algorithm
+     */
+    public static void computePaths(Vertex source) {
 
-	/*
-	 * Returns whether or not a road between only two given neighbor nodes as a interest point.
-	 * 
-	 * @return True if there is a interest point between two neighbor nodes.
-	 * point
-	 */
-	public boolean isInterestPoint(Node n1, Node n2) {
-		boolean interestPoint = false;
+        source.minDistance = 0.;
+        PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+        vertexQueue.add(source);
 
-		// Check if the nodes are neighbor nodes
-		if(n1.isNeighbourgNode(n2))
-		{
-                    // Check if there is a sightseen point between the nodes
-                    for (ArrayList<Node> pairOfNodes : interestPoints) {
-                        Node nodePair1 = pairOfNodes.get(0);
-                        Node nodePair2 = pairOfNodes.get(1);
-                        
-                        if(((nodePair1.isTheSameAs(n1)) && (nodePair2.isTheSameAs(n2))) || ((nodePair1.isTheSameAs(n2)) && (nodePair2.isTheSameAs(n1))))
-                        {
-                            interestPoint = true;
-                        }
-                    }
-		}
-		
-		return interestPoint;
-	}
+        while (!vertexQueue.isEmpty()) {
+            Vertex u = vertexQueue.poll();
 
-	/*
-	 * Set two neighbourg nodes as a interest point.
-	 * 
-	 * @return True if nodes where sucessfully added as a interest point.
-	 */
-	public boolean setInterestPoint(Node n1, Node n2) {
-		
-		boolean addedpoint = false;
+            // Visit each edge exiting u
+            for (Edge e : u.adjacencies) {
+                Vertex v = e.target;
+                double weight = e.weight;
+                double distanceThroughU = u.minDistance + weight;
+                if (distanceThroughU < v.minDistance) {
+                    vertexQueue.remove(v);
+                    v.minDistance = distanceThroughU;
+                    v.previous = u;
+                    vertexQueue.add(v);
+                }
+            }
+        }
+    }
 
-		ArrayList<Node> pairOfNodes = new ArrayList<Node>();
-		pairOfNodes.add(n1);
-		pairOfNodes.add(n2);
+    public static List<Vertex> getShortestPathTo(Vertex target) {
+        List<Vertex> path = new ArrayList<Vertex>();
+        for (Vertex vertex = target; vertex != null; vertex = vertex.previous) {
+            path.add(vertex);
+        }
+        Collections.reverse(path);
+        return path;
+    }
 
-		int previousSize = interestPoints.size();
-		interestPoints.add(pairOfNodes);
+    /*
+     * Testing 
+     * TODO remove
+     */
+    public static void main(String[] args) {
 
-		// If the point was added successfully
-		if(interestPoints.size() == (previousSize + 1))
-		{
-			addedpoint = true;
-		}
-		
-		return addedpoint;
-	}
+        Vertex v0 = new Vertex("Redvile");
+        Vertex v1 = new Vertex("Blueville");
+        Vertex v2 = new Vertex("Greenville");
+        Vertex v3 = new Vertex("Orangeville");
+        Vertex v4 = new Vertex("Purpleville");
 
+        v0.adjacencies = new Edge[]{
+            new Edge(v1, 5),
+            new Edge(v2, 10),
+            new Edge(v3, 8)};
+        v1.adjacencies = new Edge[]{
+            new Edge(v0, 5),
+            new Edge(v2, 3),
+            new Edge(v4, 7)};
+        v2.adjacencies = new Edge[]{
+            new Edge(v0, 10),
+            new Edge(v1, 3)};
+        v3.adjacencies = new Edge[]{
+            new Edge(v0, 8),
+            new Edge(v4, 2)};
+        v4.adjacencies = new Edge[]{
+            new Edge(v1, 7),
+            new Edge(v3, 2)};
+
+        Vertex[] vertices = {v0, v1, v2, v3, v4};
+        computePaths(v0);
+
+        for (Vertex v : vertices) {
+            System.out.println("Distance to " + v + ": " + v.minDistance);
+            List<Vertex> path = getShortestPathTo(v);
+            System.out.println("Path: " + path);
+        }
+    }
 }

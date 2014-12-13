@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import utilities.Node;
-import utilities.WorldMap;
+import utilities.InterestPoints;
 
 import javax.swing.JButton;
 
@@ -31,7 +31,7 @@ public class WindowUI {
 
     private JFrame frame;
     public JPanel panel_4;
-    public WorldMap wm;
+    public InterestPoints wm;
 
     /**
      * Launch the application.

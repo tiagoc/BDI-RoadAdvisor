@@ -1,6 +1,6 @@
 package agents;
 
-import utilities.WorldMap;
+import utilities.InterestPoints;
 import utilities.Node;
 import jadex.bdiv3.BDIAgent;
 import java.util.Random;
@@ -26,7 +26,7 @@ import jadex.micro.annotation.Description;
 @Description("The advisor agent")
 public class JarvasBDI {
 
-    private WorldMap map;
+    private InterestPoints map;
     private String timePeriod;
     private long currentTime;
     private String weather;
