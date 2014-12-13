@@ -26,26 +26,31 @@ public class MapPanel extends JPanel{
 	private Node firstNode;
 	private Node secondNode;
 	private ArrayList<Node> mapNodes;
+	private boolean clickActive;
 	
 
     public MapPanel() {
        try {                
-    	   mapImage = ImageIO.read(new File("resources/mapa.png"));
+    	   mapImage = ImageIO.read(new File("src/resources/mapa.png"));
     	   numberOfPoints = 0;
     	   numberOfClicks = 0;
-    	   mapNodes = new ArrayList<Node>(); 
+    	   mapNodes = new ArrayList<Node>();
+    	   clickActive = false;
     	   
     	   addMouseListener(new MouseAdapter() {
 
                @Override
                public void mouseClicked(MouseEvent e) {
                    
+            	   if(clickActive == true)
+            	   {
+            	   
             	   // Position where the mouse was clicked
             	   int xPos = e.getX();
                    int yPos = e.getY();
                    
                 
-                   /* If the position clicked is a node
+                   /* If the position clicked is a node around 5 pixels of the white pixel of the node
                     * 
                     * 		  B	B B
                     * 		B B	B B	B
@@ -57,24 +62,59 @@ public class MapPanel extends JPanel{
                     * W - White pixel.
                     * 
                     * */
-                   if(((mapImage.getRGB(xPos, yPos)) | 
-                		   (mapImage.getRGB(xPos-1, yPos)) | (mapImage.getRGB(xPos-2, yPos)) | 
-                		   (mapImage.getRGB(xPos+1, yPos)) | (mapImage.getRGB(xPos+2, yPos)) | 
-                		   (mapImage.getRGB(xPos, yPos-1)) | (mapImage.getRGB(xPos, yPos-2)) | 
-                		   (mapImage.getRGB(xPos, yPos+1)) | (mapImage.getRGB(xPos, yPos+2)) |
-                		   (mapImage.getRGB(xPos-1, yPos+1)) | (mapImage.getRGB(xPos+1, yPos-1)) |
-                		   (mapImage.getRGB(xPos+1, yPos+1)) | (mapImage.getRGB(xPos-1, yPos-1)) |
-                		   (mapImage.getRGB(xPos+1, yPos+2)) | (mapImage.getRGB(xPos+1, yPos-2)) |
-                		   (mapImage.getRGB(xPos+2, yPos+1)) | (mapImage.getRGB(xPos-2, yPos+1)) |
-                		   (mapImage.getRGB(xPos+2, yPos-1)) | (mapImage.getRGB(xPos-1, yPos+2)) |
-                		   (mapImage.getRGB(xPos-1, yPos+2)) | (mapImage.getRGB(xPos+2, yPos-1))
-                		   ) == (Color.white.getRGB()))
+                   
+                   boolean pointClicked = false;
+                   
+                   for(int y = 0; y < 5; y++)
                    {
-                	   
+                	   for(int x = 0; x < 5; x++)
+                	   {
+                		   
+                		   if(((mapImage.getRGB(xPos, yPos)) | (mapImage.getRGB(xPos-x, yPos-y)) | (mapImage.getRGB(xPos-x, yPos)) | (mapImage.getRGB(xPos, yPos-y)) | (mapImage.getRGB(xPos+x, yPos+y)) | (mapImage.getRGB(xPos+x, yPos-y)) | (mapImage.getRGB(xPos-x, yPos+y))) == (Color.white.getRGB()))
+                		   {
+                			   /* TODO TESTE */
+                			   System.out.print("y: ");
+                			   System.out.print(y);
+                			   System.out.print("\n");
+                			   System.out.print("x: ");
+                			   System.out.print(x);
+                			   System.out.print("\n");
+                			   System.out.print("mapImage.getRGB(xPos, yPos)");
+                               System.out.print(mapImage.getRGB(xPos, yPos));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos-x, yPos-y)");
+                               System.out.print(mapImage.getRGB(xPos-x, yPos-y));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos-x, yPos)");
+                               System.out.print(mapImage.getRGB(xPos-x, yPos));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos, yPos-y)");
+                               System.out.print(mapImage.getRGB(xPos, yPos-y));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos+x, yPos+y)");
+                               System.out.print(mapImage.getRGB(xPos+x, yPos+y));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos+x, yPos-y)");
+                               System.out.print(mapImage.getRGB(xPos+x, yPos-y));
+                               System.out.print("\n");
+                               System.out.print("mapImage.getRGB(xPos-x, yPos+y)");
+                               System.out.print(mapImage.getRGB(xPos-x, yPos+y));
+                               System.out.print("\n");
+                			   /* TODO TESTE */
+                			   
+                			   pointClicked = true;
+                		   }
+                	   }
+                   }
+                   
+                   if(pointClicked)
+                   {
+                	     
                    
                    if(numberOfClicks == 0)
                    {
                 	   firstNode = new Node(xPos, yPos);
+                	   numberOfClicks++; 
                    }
                    else
                 	   if(numberOfClicks == 1)
@@ -83,7 +123,8 @@ public class MapPanel extends JPanel{
                 		   addRoad();
                 	   }
                    }
-                   
+                
+               }
                }
 
            });
@@ -92,6 +133,7 @@ public class MapPanel extends JPanel{
        } catch (IOException ex) {
             // handle exception...
        }
+       
     }
 
     public void addRoad()
@@ -126,11 +168,11 @@ public class MapPanel extends JPanel{
     	firstNode = null;
     	secondNode = null;
     	numberOfClicks = 0;
+    	clickActive = false;
     }
     
     public ArrayList<Node> getImagePoints()
     {
-    	ArrayList<Node> mapPoints = new ArrayList<Node>();
     	numberOfPoints = 0;
     	
     	for(int y = 0; y < 611; y++)
@@ -141,8 +183,11 @@ public class MapPanel extends JPanel{
       		  if(mapImage.getRGB(x,y) == Color.white.getRGB())
       		  {
       			 Node n = new Node(x,y);
-      			 mapPoints.add(n);
+      			 
+      			mapNodes.add(n);
       			numberOfPoints = numberOfPoints + 1;
+      			
+      			/* TODO TESTE */
       			System.out.print("NewPoint\n");
       			System.out.print("x: ");
       			System.out.print(x);
@@ -150,16 +195,17 @@ public class MapPanel extends JPanel{
       			System.out.print("y: ");
       			System.out.print(y);
       			System.out.print("\n");
+      			/* TODO TESTE */
       		  }
       	  }
         }
     	
-    	return mapPoints;
+    	return mapNodes;
     }
     
     public void choosePoints()
     {
-    	
+    	clickActive = true;
     }
     
     public int getNumberOfPoints()
@@ -175,9 +221,14 @@ public class MapPanel extends JPanel{
     		
     		ArrayList<Node> neiNodes = currentNode.getNeighborgNodes();
     		
+    		if(neiNodes.size() > 0)
+    		{
+    		
     		// Draw a road between each neighbor node and the current node
     		for (Node neighbor : neiNodes) {
     			g.drawLine(currentNode.getXPos(), currentNode.getYPos(), neighbor.getXPos(), neighbor.getYPos());
+    		}
+    		
     		}
     		
     	}

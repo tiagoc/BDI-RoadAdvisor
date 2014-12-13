@@ -13,6 +13,7 @@ public class Node {
 	public Node(int x, int y) {
 		this.xPos = x;
 		this.yPos = y;
+		this.neighborNodes = new ArrayList<Node>();
 	}
 
 	/*
