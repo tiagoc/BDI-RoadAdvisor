@@ -43,7 +43,7 @@ public class WindowUI {
             public void run() {
                 try {
                     WindowUI window = new WindowUI();
-                    window.frame.setVisible(true);
+                    window.getFrame().setVisible(true); 
                 } catch (Exception e) {
                 }
             }
@@ -62,15 +62,15 @@ public class WindowUI {
      */
     private void initialize() {
         wm = new WorldBDI();
-        frame = new JFrame();
-        frame.setBounds(100, 100, 822, 388);
-        frame.setSize(1000, 700);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout(0, 0));
+        setFrame(new JFrame());
+        getFrame().setBounds(100, 100, 822, 388);
+        getFrame().setSize(1000, 700);
+        getFrame().setResizable(false);
+        getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getFrame().getContentPane().setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        getFrame().getContentPane().add(panel, BorderLayout.NORTH);
         GroupLayout gl_panel = new GroupLayout(panel);
         gl_panel.setHorizontalGroup(
                 gl_panel.createParallelGroup(Alignment.LEADING)
@@ -83,7 +83,7 @@ public class WindowUI {
         panel.setLayout(gl_panel);
 
         JPanel panel_1 = new JPanel();
-        frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
+        getFrame().getContentPane().add(panel_1, BorderLayout.SOUTH);
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
                 gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -96,7 +96,7 @@ public class WindowUI {
         panel_1.setLayout(gl_panel_1);
 
         JPanel panel_2 = new JPanel();
-        frame.getContentPane().add(panel_2, BorderLayout.WEST);
+        getFrame().getContentPane().add(panel_2, BorderLayout.WEST);
         GroupLayout gl_panel_2 = new GroupLayout(panel_2);
         gl_panel_2.setHorizontalGroup(
                 gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -109,7 +109,7 @@ public class WindowUI {
         panel_2.setLayout(gl_panel_2);
 
         JPanel panel_3 = new JPanel();
-        frame.getContentPane().add(panel_3, BorderLayout.EAST);
+        getFrame().getContentPane().add(panel_3, BorderLayout.EAST);
 
         /* Time Period Options */
         ButtonGroup timePeriodButtons = new ButtonGroup();
@@ -241,7 +241,7 @@ public class WindowUI {
         panel_3.setLayout(gl_panel_3);
 
         panel_4 = new MapPanel();
-        frame.getContentPane().add(panel_4, BorderLayout.CENTER);
+        getFrame().getContentPane().add(panel_4, BorderLayout.CENTER);
         GroupLayout gl_panel_4 = new GroupLayout(panel_4);
         gl_panel_4.setHorizontalGroup(
                 gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -294,4 +294,12 @@ public class WindowUI {
 
         return numberOfNodes;
     }
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 }

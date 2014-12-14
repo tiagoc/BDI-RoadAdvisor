@@ -1,5 +1,12 @@
 package agents;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+
+import utilities.Edge;
+import utilities.Vertex;
 import jadex.bdiv3.BDIAgent;
 import jadex.bdiv3.annotation.Belief;
 import jadex.bdiv3.annotation.Plan;
@@ -47,8 +54,8 @@ public class JarvasBDI implements ChatService{
     @AgentBody
     public void body() {
         System.out.println("Jarvas is running.");
-       // agent.adoptPlan("findFastestPathPlan");
-        sendMessage("KILL");
+        //agent.adoptPlan("findFastestPathPlan");
+        //sendMessage("KILL");
 
     }  
     
@@ -231,10 +238,14 @@ public class JarvasBDI implements ChatService{
 			agent.killAgent();
 			
 		}else
+			if(s1.equals("Driver is on.")){
+				System.out.println("Hello Driver, this is Jarvas. How may I be of service?");
+			}
 		if(!s0.equals(agent.getComponentIdentifier().getLocalName()))
 		{
 			if(checkMsgDest(s1))
 			{
+				
 				//agent.dispatchTopLevelGoal(new AchieveGoal(s1)).get();
 				
 			}
@@ -249,6 +260,50 @@ public class JarvasBDI implements ChatService{
 		else
 			return false;
 	}
+	
+	/* ************************************************************* */
+	
+	
+	/* ************************************************************* */
+	/* *                        Path finding                         */
+	/* ************************************************************* */
     
+	/**
+	 * Compute using Djikstra's algorithm
+	 *
+	 * @param source Path to compute
+	 */
+	public static void computePaths(Vertex source) {
+
+		source.minDistance = 0.;
+		PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+		vertexQueue.add(source);
+
+		while (!vertexQueue.isEmpty()) {
+			Vertex u = vertexQueue.poll();
+
+			// Visit each edge exiting u
+			for (Edge e : u.adjacencies) {
+				Vertex v = e.target;
+				double weight = e.weight;
+				double distanceThroughU = u.minDistance + weight;
+				if (distanceThroughU < v.minDistance) {
+					vertexQueue.remove(v);
+					v.minDistance = distanceThroughU;
+					v.previous = u;
+					vertexQueue.add(v);
+				}
+			}
+		}
+	}
+
+	public static List<Vertex> getShortestPathTo(Vertex target) {
+		List<Vertex> path = new ArrayList<Vertex>();
+		for (Vertex vertex = target; vertex != null; vertex = vertex.previous) {
+			path.add(vertex);
+		}
+		Collections.reverse(path);
+		return path;
+	}
     
 }

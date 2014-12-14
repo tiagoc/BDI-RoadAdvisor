@@ -1,5 +1,8 @@
 package agents;
 
+import java.awt.EventQueue;
+
+import gui.WindowUI;
 import jadex.bdiv3.BDIAgent;
 import jadex.bdiv3.annotation.Goal;
 import jadex.bridge.service.RequiredServiceInfo;
@@ -34,7 +37,19 @@ public class DriverBDI implements ChatService{
 	public void body() {
 		System.out.println("Driver is running.");
 		
-		sendMessage("Estou aqui fofos!");
+		sendMessage("Driver is on.");
+		
+		// Open GUI
+		EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    WindowUI window = new WindowUI();
+                    window.getFrame().setVisible(true); 
+                } catch (Exception e) {
+                }
+            }
+        });
+		
 
 	}
 
