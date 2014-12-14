@@ -29,7 +29,10 @@ import jadex.micro.annotation.Description;
 @Description("The advisor agent")
 public class JarvasBDI {
 
-    
+	private String timePeriod;
+    private long currentTime;
+    private String weather;
+    private String traffic;
 
     @Agent
     protected BDIAgent agent;
@@ -39,10 +42,63 @@ public class JarvasBDI {
      */
     @AgentBody
     public void body() {
-        System.out.println("Hello world!");
+        System.out.println("Hello from Jarvas!");
        // agent.adoptPlan("findFastestPathPlan");
 
     }  
+    
+    
+    /* *************************** */
+    /*           Beliefs           */
+    /* *************************** */
+    
+    @Belief(updaterate=1000)
+	protected long time = System.currentTimeMillis();
+
+    /* Time Period - "Day" or "Night" */
+    @Belief
+    public String getTimePeriod() {
+        return timePeriod;
+    }
+
+    @Belief
+    public void setTimePeriod(String timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
+    /* Current Time */
+    @Belief
+    public long getCurrentTime() {
+        return currentTime;
+    }
+
+    @Belief
+    public void setCurrentTime(long currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    @Belief
+    public String getWeather() {
+        return this.weather;
+    }
+
+    @Belief
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
+    /* Traffic */
+    @Belief
+    public String getTraffic() {
+        return this.traffic;
+    }
+
+    @Belief
+    public void setTraffic(String traffic) {
+        this.traffic = traffic;
+    }
+
+    /* ************************************************************* */
     
     
     

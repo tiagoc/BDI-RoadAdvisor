@@ -34,28 +34,22 @@ public class WorldBDI {
     private String traffic;
     
     
-    /* *************************** */
-    /*           Beliefs           */
-    /* *************************** */
+	protected long time = System.currentTimeMillis();
 
     /* Time Period - "Day" or "Night" */
-    @Belief
     public String getTimePeriod() {
         return timePeriod;
     }
 
-    @Belief
     public void setTimePeriod(String timePeriod) {
         this.timePeriod = timePeriod;
     }
 
     /* Current Time */
-    @Belief
     public long getCurrentTime() {
         return currentTime;
     }
 
-    @Belief
     public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
     }
@@ -98,12 +92,10 @@ public class WorldBDI {
         return weatherUpdated;
     }
 
-    @Belief
     public String getWeather() {
         return this.weather;
     }
 
-    @Belief
     public void setWeather(String weather) {
         this.weather = weather;
     }
@@ -143,12 +135,10 @@ public class WorldBDI {
     }
 
     /* Traffic */
-    @Belief
     public String getTraffic() {
         return this.traffic;
     }
 
-    @Belief
     public void setTraffic(String traffic) {
         this.traffic = traffic;
     }
@@ -185,8 +175,7 @@ public class WorldBDI {
     /* ************************************************************* */
 
 
-	@Belief(updaterate=1000)
-	protected long time = System.currentTimeMillis();
+	
 
 	@AgentBody
 	public void body() {
