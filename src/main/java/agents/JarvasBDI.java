@@ -38,7 +38,7 @@ public class JarvasBDI {
     @AgentBody
     public void body() {
         System.out.println("Hello world!");
-        agent.adoptPlan("findFastestPathPlan");
+       // agent.adoptPlan("findFastestPathPlan");
 
     }
     

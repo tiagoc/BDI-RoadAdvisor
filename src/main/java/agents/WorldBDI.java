@@ -1,11 +1,16 @@
 package agents;
 
+import jadex.bdiv3.annotation.Belief;
 import jadex.micro.annotation.Agent;
+import jadex.micro.annotation.AgentBody;
 import jadex.micro.annotation.Description;
+import jadex.platform.service.clock.Timer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
+
 import utilities.Edge;
 import utilities.Vertex;
 
@@ -18,78 +23,85 @@ import utilities.Vertex;
 @Description("The world agent")
 public class WorldBDI {
 
-    Vertex[] WorldMapGraph;
-    private int numberOfVertexes;
-    private ArrayList<Vertex> mapVertexes;
+	Vertex[] WorldMapGraph;
+	private int numberOfVertexes;
+	private ArrayList<Vertex> mapVertexes;
 
-    public WorldBDI() {
 
-    }
+	@Belief(updaterate=1000)
+	protected long time = System.currentTimeMillis();
 
-    public void setNumberOfVertexes(int num) {
-        this.numberOfVertexes = num;
-    }
+	@AgentBody
+	public void body() {
+		System.out.println("Hello from world!");
+		System.out.println(time);
 
-    public void setMapVertexes(ArrayList<Vertex> m) {
-        this.mapVertexes = m;
-    }
+	}
 
-    /*
-     * Returns the number of vertexes of the map.
-     * 
-     * @return Number of vertexes of the map.
-     */
-    public int getNumberOfVertexes() {
-        return numberOfVertexes;
-    }
+	public void setNumberOfVertexes(int num) {
+		this.numberOfVertexes = num;
+	}
 
-    /*
-     * Returns the vertexes of the map.
-     * 
-     * @return Vertexes of the map.
-     */
-    public ArrayList<Vertex> getMapVertexes() {
-        return mapVertexes;
-    }
+	public void setMapVertexes(ArrayList<Vertex> m) {
+		this.mapVertexes = m;
+	}
 
-    /*
-     * Returns the number of interest points on the map.
-     * 
-     * @return Number of interest points on the map.
-     */
-    public void getNumberOfInterestPoints() {
+	/*
+	 * Returns the number of vertexes of the map.
+	 * 
+	 * @return Number of vertexes of the map.
+	 */
+	public int getNumberOfVertexes() {
+		return numberOfVertexes;
+	}
 
-        // TODO
-    }
+	/*
+	 * Returns the vertexes of the map.
+	 * 
+	 * @return Vertexes of the map.
+	 */
+	public ArrayList<Vertex> getMapVertexes() {
+		return mapVertexes;
+	}
 
-    /*
-     * Returns whether or not a road between only two given neighbor vertexes as a interest point.
-     * 
-     * @return True if there is a interest point between two neighbor vertexes.
-     * point
-     */
-    public boolean isInterestPoint(Vertex v1, Vertex v2) {
-        boolean interestPoint = false;
+	/*
+	 * Returns the number of interest points on the map.
+	 * 
+	 * @return Number of interest points on the map.
+	 */
+	public void getNumberOfInterestPoints() {
 
-        // Check if the vertexes are neighbors
-        if (v1.isNeighborVertex(v2)) {
-					// TODO - Check if there is an adjacency that is an interest point between the two vertexes
-            // Check if there is a interest point between the nodes
-        }
+		// TODO
+	}
 
-        return interestPoint;
-    }
+	/*
+	 * Returns whether or not a road between only two given neighbor vertexes as a interest point.
+	 * 
+	 * @return True if there is a interest point between two neighbor vertexes.
+	 * point
+	 */
+	public boolean isInterestPoint(Vertex v1, Vertex v2) {
+		boolean interestPoint = false;
 
-    /*
-     * Set two neighbor nodes as a interest point.
-     * 
-     * @return True if nodes where sucessfully added as a interest point.
-     */
-    public boolean setInterestPoint(Vertex v1, Vertex v2) {
+		// Check if the vertexes are neighbors
+		if (v1.isNeighborVertex(v2)) {
+			// TODO - Check if there is an adjacency that is an interest point between the two vertexes
+			// Check if there is a interest point between the nodes
+		}
 
-        boolean addedpoint = false;
+		return interestPoint;
+	}
 
-        /*ArrayList<Node> pairOfNodes = new ArrayList<Node>();
+	/*
+	 * Set two neighbor nodes as a interest point.
+	 * 
+	 * @return True if nodes where sucessfully added as a interest point.
+	 */
+	public boolean setInterestPoint(Vertex v1, Vertex v2) {
+
+		boolean addedpoint = false;
+
+		/*ArrayList<Node> pairOfNodes = new ArrayList<Node>();
          pairOfNodes.add(n1);
          pairOfNodes.add(n2);
 
@@ -102,52 +114,52 @@ public class WorldBDI {
          addedpoint = true;
          }*/
 		// TODO
-        return addedpoint;
-    }
+		return addedpoint;
+	}
 
-    /**
-     * Compute using Djikstra's algorithm
-     *
-     * @param source Path to compute
-     */
-    public static void computePaths(Vertex source) {
+	/**
+	 * Compute using Djikstra's algorithm
+	 *
+	 * @param source Path to compute
+	 */
+	public static void computePaths(Vertex source) {
 
-        source.minDistance = 0.;
-        PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
-        vertexQueue.add(source);
+		source.minDistance = 0.;
+		PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+		vertexQueue.add(source);
 
-        while (!vertexQueue.isEmpty()) {
-            Vertex u = vertexQueue.poll();
+		while (!vertexQueue.isEmpty()) {
+			Vertex u = vertexQueue.poll();
 
-            // Visit each edge exiting u
-            for (Edge e : u.adjacencies) {
-                Vertex v = e.target;
-                double weight = e.weight;
-                double distanceThroughU = u.minDistance + weight;
-                if (distanceThroughU < v.minDistance) {
-                    vertexQueue.remove(v);
-                    v.minDistance = distanceThroughU;
-                    v.previous = u;
-                    vertexQueue.add(v);
-                }
-            }
-        }
-    }
+			// Visit each edge exiting u
+			for (Edge e : u.adjacencies) {
+				Vertex v = e.target;
+				double weight = e.weight;
+				double distanceThroughU = u.minDistance + weight;
+				if (distanceThroughU < v.minDistance) {
+					vertexQueue.remove(v);
+					v.minDistance = distanceThroughU;
+					v.previous = u;
+					vertexQueue.add(v);
+				}
+			}
+		}
+	}
 
-    public static List<Vertex> getShortestPathTo(Vertex target) {
-        List<Vertex> path = new ArrayList<Vertex>();
-        for (Vertex vertex = target; vertex != null; vertex = vertex.previous) {
-            path.add(vertex);
-        }
-        Collections.reverse(path);
-        return path;
-    }
+	public static List<Vertex> getShortestPathTo(Vertex target) {
+		List<Vertex> path = new ArrayList<Vertex>();
+		for (Vertex vertex = target; vertex != null; vertex = vertex.previous) {
+			path.add(vertex);
+		}
+		Collections.reverse(path);
+		return path;
+	}
 
-    /*
-     * Testing 
-     * TODO remove
-     
-     public static void main(String[] args) {
+	/*
+	 * Testing 
+	 * TODO remove
+	 * 
+     public void main(String[] args) {
 
      Vertex v0 = new Vertex("Redvile");
      Vertex v1 = new Vertex("Blueville");
@@ -181,6 +193,6 @@ public class WorldBDI {
      List<Vertex> path = getShortestPathTo(v);
      System.out.println("Path: " + path);
      }
-     }
-     */
+	 */
+
 }
