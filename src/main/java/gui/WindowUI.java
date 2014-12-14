@@ -1,8 +1,10 @@
 package gui;
 
 import agents.WorldBDI;
+
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -11,11 +13,16 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
 import utilities.Vertex;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
+
 import java.util.ArrayList;
 
 
@@ -106,26 +113,57 @@ public class WindowUI {
 
         /* Time Period Options */
         ButtonGroup timePeriodButtons = new ButtonGroup();
-
         JLabel lblTimePeriod = new JLabel("Time Period");
-
         JRadioButton rdbtnDay = new JRadioButton("Day");
-
         JRadioButton rdbtnNight = new JRadioButton("Night");
 
         timePeriodButtons.add(rdbtnDay);
         timePeriodButtons.add(rdbtnNight);
 
-        /* Wheather Options */
-        JLabel lbl_Wheather = new JLabel("Weather");
-        String[] wheatherStrings = {"Snow", "Hail", "High Rain", "Light Rain", "Cloudy", "Sunny"};
-        JComboBox<Object> comboBox_Wheather = new JComboBox<Object>(wheatherStrings);
+        /* Weather Options */
+        JLabel lbl_Weather = new JLabel("Weather");
+        String[] WeatherStrings = {"Storm", "Snow", "Hail", "High Rain", "Light Rain", "Cloudy", "Sunny"};
+        JComboBox<Object> comboBox_Weather = new JComboBox<Object>(WeatherStrings);
+        comboBox_Weather.setSelectedIndex(0);
+        comboBox_Weather.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+
+            	@SuppressWarnings("unchecked")
+				JComboBox<Object> src = (JComboBox<Object>)e.getSource();
+            	((MapPanel) panel_4).chosenWeather = (String)src.getSelectedItem();
+            }
+        });
 
         /* Traffic Options */
         JLabel lblTrnsito = new JLabel("Traffic");
         String[] trafficStrings = {"None", "Light", "Moderate", "High", "Stopped"};
         JComboBox<Object> comboBox_Traffic = new JComboBox<Object>(trafficStrings);
+        comboBox_Traffic.setSelectedIndex(0);
+        comboBox_Traffic.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
 
+            	@SuppressWarnings("unchecked")
+				JComboBox<Object> src = (JComboBox<Object>)e.getSource();
+            	 ((MapPanel) panel_4).chosenTraffic = (String)src.getSelectedItem();
+            }
+        });
+
+        /* Interest Point */
+        JLabel lblIsInterestPoint = new JLabel("Is An Interest Point?");
+        String[] options = {"Yes", "No"};
+        JComboBox<Object> comboBox_InterestPoint = new JComboBox<Object>(options);
+        comboBox_InterestPoint.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+
+            	@SuppressWarnings("unchecked")
+				JComboBox<Object> src = (JComboBox<Object>)e.getSource();
+                ((MapPanel) panel_4).interestPoint = (String)src.getSelectedItem();
+            }
+        });
+       
         JButton btnAddRoad = new JButton("Add Road");
         btnAddRoad.addActionListener(new ActionListener() {
             
@@ -136,53 +174,69 @@ public class WindowUI {
 
             }
         });
+        
+        JButton btnReset = new JButton("Reset");
+        btnReset.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
 
-        JButton btnAddInterestPoint = new JButton("Add Interest Point");
+                // TODO Reset
+
+            }
+        });
 
         GroupLayout gl_panel_3 = new GroupLayout(panel_3);
         gl_panel_3.setHorizontalGroup(
-                gl_panel_3.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_panel_3.createSequentialGroup()
-                        .addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-                                .addGroup(gl_panel_3.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lblTimePeriod))
-                                .addComponent(rdbtnDay)
-                                .addComponent(rdbtnNight)
-                                .addGroup(gl_panel_3.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lbl_Wheather))
-                                .addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(gl_panel_3.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lblTrnsito))
-                                .addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnAddRoad)
-                                .addComponent(btnAddInterestPoint))
-                        .addContainerGap(26, Short.MAX_VALUE))
+        	gl_panel_3.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_panel_3.createSequentialGroup()
+        			.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_panel_3.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(lblTimePeriod))
+        				.addComponent(rdbtnDay)
+        				.addComponent(rdbtnNight)
+        				.addGroup(gl_panel_3.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(lbl_Weather))
+        				.addComponent(comboBox_Weather, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(gl_panel_3.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(lblTrnsito))
+        				.addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(gl_panel_3.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(lblIsInterestPoint))
+        				.addComponent(comboBox_InterestPoint, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnReset)
+        				.addComponent(btnAddRoad))
+        			.addContainerGap())
         );
         gl_panel_3.setVerticalGroup(
-                gl_panel_3.createParallelGroup(Alignment.TRAILING)
-                .addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
-                        .addGap(131)
-                        .addComponent(lblTimePeriod)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(rdbtnDay)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(rdbtnNight)
-                        .addGap(30)
-                        .addComponent(lbl_Wheather)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(comboBox_Wheather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(ComponentPlacement.UNRELATED)
-                        .addComponent(lblTrnsito)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(125)
-                        .addComponent(btnAddRoad)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(btnAddInterestPoint)
-                        .addContainerGap(124, Short.MAX_VALUE))
+        	gl_panel_3.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_panel_3.createSequentialGroup()
+        			.addGap(131)
+        			.addComponent(lblTimePeriod)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(rdbtnDay)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(rdbtnNight)
+        			.addGap(30)
+        			.addComponent(lbl_Weather)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(comboBox_Weather, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblTrnsito)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(comboBox_Traffic, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblIsInterestPoint)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(comboBox_InterestPoint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(42)
+        			.addComponent(btnAddRoad)
+        			.addPreferredGap(ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+        			.addComponent(btnReset)
+        			.addGap(24))
         );
         panel_3.setLayout(gl_panel_3);
 
@@ -240,5 +294,4 @@ public class WindowUI {
 
         return numberOfNodes;
     }
-
 }

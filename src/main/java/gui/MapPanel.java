@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,241 +20,339 @@ import javax.swing.JPanel;
 
 import utilities.Vertex;
 
-
-
 public class MapPanel extends JPanel {
 
-    /**
+	/**
      *
      */
-    private static final long serialVersionUID = 1L;
-    private BufferedImage mapImage;
-    private int numberOfPoints;
-    private int numberOfClicks;
-    private Vertex firstPoint;
-    private Vertex secondPoint;
-    private ArrayList<Vertex> mapVertexes;
-    private boolean clickActive;
-    private ArrayList<ArrayList<Vertex>> mapRoads;
-    private ArrayList<Boolean> interestPoints;
+	private static final long serialVersionUID = 1L;
+	private BufferedImage mapImage;
+	private int numberOfPoints;
+	private int numberOfClicks;
+	private Vertex firstPoint;
+	private Vertex secondPoint;
+	private ArrayList<Vertex> mapVertexes;
+	private boolean clickActive;
+	private ArrayList<ArrayList<Vertex>> mapRoads;
+	private ArrayList<Boolean> interestPoints;
+	private ArrayList<String> weather;
+	private ArrayList<String> traffic;
+	public String chosenWeather;
+	public String chosenTraffic;
+	public String interestPoint;
 
-    public MapPanel() {
-        try {
-            mapImage = ImageIO.read(new File("resources/mapa.png"));
-            numberOfPoints = 0;
-            numberOfClicks = 0;
-            mapVertexes = new ArrayList<Vertex>();
-            mapRoads = new ArrayList<ArrayList<Vertex>>();
-            clickActive = false;
+	public MapPanel() {
+		try {
+			mapImage = ImageIO.read(new File("resources/mapa.png"));
 
-            addMouseListener(new MouseAdapter() {
+			numberOfPoints = 0;
+			numberOfClicks = 0;
+			mapVertexes = new ArrayList<Vertex>();
+			mapRoads = new ArrayList<ArrayList<Vertex>>();
+			interestPoints = new ArrayList<Boolean>();
+			weather = new ArrayList<String>();
+			traffic = new ArrayList<String>();
+			clickActive = false;
+			chosenWeather = "Snow";
+			chosenTraffic = "None";
+			interestPoint = "Yes";
 
-                @Override
-                public void mouseClicked(MouseEvent e) {
+			addMouseListener(new MouseAdapter() {
 
-                    if (clickActive == true) {
+				@Override
+				public void mouseClicked(MouseEvent e) {
 
-                        // Position where the mouse was clicked
-                        int xPos = e.getX();
-                        int yPos = e.getY();
+					if (clickActive == true) {
 
-                        /* If the position clicked is a node around 5 pixels of the white pixel of the node
-                         * 
-                         * 		  B	B B
-                         * 		B B	B B	B
-                         * 		B B W B B
-                         *       B B B B B
-                         * 		  B B B	
-                         * 
-                         * B - Black pixel.
-                         * W - White pixel.
-                         * 
-                         * */
-                        boolean pointClicked = false;
+						// Position where the mouse was clicked
+						int xPos = e.getX();
+						int yPos = e.getY();
 
-                        for (int y = 0; y < 5; y++) {
-                            for (int x = 0; x < 5; x++) {
+						/*
+						 * If the position clicked is a node around 5 pixels of
+						 * the white pixel of the node
+						 * 
+						 * B B B B B B B B B B W B B B B B B B B B B
+						 * 
+						 * B - Black pixel. W - White pixel.
+						 */
+						boolean pointClicked = false;
 
-                                if (((mapImage.getRGB(xPos, yPos)) | (mapImage.getRGB(xPos - x, yPos - y)) | (mapImage.getRGB(xPos - x, yPos)) | (mapImage.getRGB(xPos, yPos - y)) | (mapImage.getRGB(xPos + x, yPos + y)) | (mapImage.getRGB(xPos + x, yPos - y)) | (mapImage.getRGB(xPos - x, yPos + y))) == (Color.white.getRGB())) {
-                                    /* TODO TESTE */
-                                    System.out.print("y: ");
-                                    System.out.print(y);
-                                    System.out.print("\n");
-                                    System.out.print("x: ");
-                                    System.out.print(x);
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos, yPos)");
-                                    System.out.print(mapImage.getRGB(xPos, yPos));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos-x, yPos-y)");
-                                    System.out.print(mapImage.getRGB(xPos - x, yPos - y));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos-x, yPos)");
-                                    System.out.print(mapImage.getRGB(xPos - x, yPos));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos, yPos-y)");
-                                    System.out.print(mapImage.getRGB(xPos, yPos - y));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos+x, yPos+y)");
-                                    System.out.print(mapImage.getRGB(xPos + x, yPos + y));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos+x, yPos-y)");
-                                    System.out.print(mapImage.getRGB(xPos + x, yPos - y));
-                                    System.out.print("\n");
-                                    System.out.print("mapImage.getRGB(xPos-x, yPos+y)");
-                                    System.out.print(mapImage.getRGB(xPos - x, yPos + y));
-                                    System.out.print("\n");
-                                    /* TODO TESTE */
+						for (int y = 0; y < 5; y++) {
+							for (int x = 0; x < 5; x++) {
 
-                                    pointClicked = true;
-                                }
-                            }
-                        }
+								if (((mapImage.getRGB(xPos, yPos))
+										| (mapImage.getRGB(xPos - x, yPos - y))
+										| (mapImage.getRGB(xPos - x, yPos))
+										| (mapImage.getRGB(xPos, yPos - y))
+										| (mapImage.getRGB(xPos + x, yPos + y))
+										| (mapImage.getRGB(xPos + x, yPos - y)) | (mapImage
+											.getRGB(xPos - x, yPos + y))) == (Color.white
+										.getRGB())) {
+									/* TODO TESTE */
+									System.out.print("y: ");
+									System.out.print(y);
+									System.out.print("\n");
+									System.out.print("x: ");
+									System.out.print(x);
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos, yPos)");
+									System.out.print(mapImage
+											.getRGB(xPos, yPos));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos-x, yPos-y)");
+									System.out.print(mapImage.getRGB(xPos - x,
+											yPos - y));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos-x, yPos)");
+									System.out.print(mapImage.getRGB(xPos - x,
+											yPos));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos, yPos-y)");
+									System.out.print(mapImage.getRGB(xPos, yPos
+											- y));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos+x, yPos+y)");
+									System.out.print(mapImage.getRGB(xPos + x,
+											yPos + y));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos+x, yPos-y)");
+									System.out.print(mapImage.getRGB(xPos + x,
+											yPos - y));
+									System.out.print("\n");
+									System.out
+											.print("mapImage.getRGB(xPos-x, yPos+y)");
+									System.out.print(mapImage.getRGB(xPos - x,
+											yPos + y));
+									System.out.print("\n");
+									/* TODO TESTE */
 
-                        if (pointClicked) {
+									pointClicked = true;
+								}
+							}
+						}
 
-                        	Vertex point = new Vertex(xPos, yPos);
-                        	
-                            if (numberOfClicks == 0) {
-                                firstPoint = new Vertex(xPos, yPos);
-                                numberOfClicks++;
-                            } else if ((numberOfClicks == 1) && (!firstPoint.isTheSameAs(point))) {
-                                secondPoint = new Vertex(xPos, yPos);
-                                addRoad();
-                            }
-                        }
+						if (pointClicked) {
 
-                    }
-                }
+							Vertex point = new Vertex(xPos, yPos);
 
-            });
+							if (numberOfClicks == 0) {
+								firstPoint = new Vertex(xPos, yPos);
+								numberOfClicks++;
+							} else if ((numberOfClicks == 1)
+									&& (!firstPoint.isTheSameAs(point))) {
+								secondPoint = new Vertex(xPos, yPos);
 
-        } catch (IOException ex) {
-            // handle exception...
-        }
+								// Add road to map
+								addRoad();
 
-    }
+							}
+						}
 
-    public void addRoad() {
-        // Check if the chosen vertexes are already neighbor vertexes (there is a road between them)
-        if (!firstPoint.isNeighborVertex(secondPoint)) {
-            for (int i = 0; i < mapVertexes.size(); i++) {
+					}
+				}
 
-                Vertex currentVertex = mapVertexes.get(i);
+			});
 
-                /*if (currentVertex.isTheSameAs(firstPoint)) {
-                    // TODO Set second vertex as neighbor of first vertex  
-                	currentVertex.addNeighborgVertex(secondPoint.getXPos(), secondPoint.getYPos());
-                    mapVertexes.set(i, currentVertex);
-                } else if (currentVertex.isTheSameAs(secondPoint)) {
-                    // TODO Set first vertex as neighbor of second vertex
-                	currentVertex.addNeighborgVertex(firstPoint.getXPos(), firstPoint.getYPos());
-                    mapVertexes.set(i, currentVertex);
-                }*/
-                
-                // Add new road to the roads of the map
-                ArrayList<Vertex> pairOfVertexes = new ArrayList<Vertex>();
-                pairOfVertexes.add(firstPoint);
-                pairOfVertexes.add(secondPoint);
-                mapRoads.add(pairOfVertexes);
-                
-                repaint();
-        }
-        } else {
-            // TODO window alert: "There is already a road between these points!"
-        }
+		} catch (IOException ex) {
+			// handle exception...
+		}
 
-        firstPoint = null;
-        secondPoint = null;
-        numberOfClicks = 0;
-        clickActive = false;
-    }
+	}
 
-    public ArrayList<Vertex> getImagePoints() {
-        numberOfPoints = 0;
+	public void addRoad() {
+		// Check if the chosen vertexes are already neighbor vertexes (there is
+		// a road between them)
+		if (!firstPoint.isNeighborVertex(secondPoint)) {
 
-        for (int y = 0; y < 611; y++) {
-            for (int x = 0; x < 760; x++) {
-                // If the pixel is white, it's a point/node of the map
-                if (mapImage.getRGB(x, y) == Color.white.getRGB()) {
-                    Vertex v = new Vertex(x, y);
+			// TODO Set second vertex as neighbor of first vertex
+			// TODO Set first vertex as neighbor of second vertex
 
-                    mapVertexes.add(v);
-                    numberOfPoints = numberOfPoints + 1;
+			// Add new road to the roads of the map
+			ArrayList<Vertex> pairOfVertexes = new ArrayList<Vertex>();
+			pairOfVertexes.add(firstPoint);
+			pairOfVertexes.add(secondPoint);
+			mapRoads.add(pairOfVertexes);
 
-                    /* TODO TESTE */
-                    System.out.print("NewPoint\n");
-                    System.out.print("x: ");
-                    System.out.print(x);
-                    System.out.print("\n");
-                    System.out.print("y: ");
-                    System.out.print(y);
-                    System.out.print("\n");
-                    /* TODO TESTE */
-                }
-            }
-        }
+			// Interest point
+			if (interestPoint == "Yes") {
+				interestPoints.add(true);
+			} else {
+				interestPoints.add(false);
+			}
+			// TODO add interest point to edge
 
-        return mapVertexes;
-    }
+			// Traffic
+			traffic.add(chosenTraffic);
+			// TODO add traffic to edge
 
-    public void choosePoints() {
-        clickActive = true;
-    }
+			// Weather
+			weather.add(chosenWeather);
+			// TODO add weather to edge
 
-    public int getNumberOfPoints() {
-        return numberOfPoints;
-    }
+			// TODO add edge to map of edges
 
-    public void drawRoads(Graphics g) {
+			repaint();
 
-    	if(mapRoads.size() > 0)
-    	{
-    		
-    		int iPoint = 0;
-    		
-        for (ArrayList<Vertex> currentRoad : mapRoads) {
+		} else {
+			// TODO window alert:
+			// "There is already a road between these points!"
+		}
 
-            Vertex firstVertex = currentRoad.get(0);
-            Vertex secondVertex = currentRoad.get(1);
+		firstPoint = null;
+		secondPoint = null;
+		numberOfClicks = 0;
+		clickActive = false;
+	}
 
-            // Draw a road between the two vertexes    
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(new BasicStroke(4));
-            if(interestPoints.get(iPoint))
-            {
-            	g2.setColor(Color.RED);
-            }
-            else
-            {
-            	g2.setColor(Color.GRAY);
-            }
-            
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // antialiasing on
-            g2.draw(new Line2D.Float(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos()));
-            
-            iPoint++;
-        }
+	public ArrayList<Vertex> getImagePoints() {
+		numberOfPoints = 0;
 
-        }
+		for (int y = 0; y < 611; y++) {
+			for (int x = 0; x < 760; x++) {
+				// If the pixel is white, it's a point/node of the map
+				if (mapImage.getRGB(x, y) == Color.white.getRGB()) {
+					Vertex v = new Vertex(x, y);
 
-    }
+					mapVertexes.add(v);
+					numberOfPoints = numberOfPoints + 1;
 
-    public ArrayList<Vertex> updateMapPoints() {
-        return this.mapVertexes;
-    }
+					/* TODO TESTE */
+					System.out.print("NewPoint\n");
+					System.out.print("x: ");
+					System.out.print(x);
+					System.out.print("\n");
+					System.out.print("y: ");
+					System.out.print(y);
+					System.out.print("\n");
+					/* TODO TESTE */
+				}
+			}
+		}
 
-    public int updateNumberOfPoints() {
-        return this.numberOfPoints;
-    }
+		return mapVertexes;
+	}
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(mapImage, 0, 0, null);
-        if (!mapVertexes.isEmpty()) {
-            drawRoads(g);
-        }
-    }
+	public void choosePoints() {
+		clickActive = true;
+	}
+
+	public int getNumberOfPoints() {
+		return numberOfPoints;
+	}
+
+	public void drawRoads(Graphics g) {
+
+		if (mapRoads.size() > 0) {
+
+			int iPoint = 0;
+
+			for (ArrayList<Vertex> currentRoad : mapRoads) {
+
+				Vertex firstVertex = currentRoad.get(0);
+				Vertex secondVertex = currentRoad.get(1);
+
+				// Draw a road between the two vertexes
+				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(4));
+
+				// Interest Points
+				if (interestPoints.get(iPoint)) {
+					/*
+					 * float[] dashingPattern1 = {2f, 2f}; Stroke stroke1 = new
+					 * BasicStroke(2f, BasicStroke.CAP_BUTT,
+					 * BasicStroke.JOIN_MITER, 1.0f, dashingPattern1, 2.0f);
+					 * float[] dashingPattern2 = {10f, 4f}; Stroke stroke2 = new
+					 * BasicStroke(4f, BasicStroke.CAP_BUTT,
+					 * BasicStroke.JOIN_MITER, 1.0f, dashingPattern2, 0.0f);
+					 */
+					float[] dashingPattern3 = { 10f, 10f, 1f, 10f };
+					Stroke stroke3 = new BasicStroke(4f,
+							BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,
+							1.0f, dashingPattern3, 0.0f);
+					g2.setStroke(stroke3);
+				}
+
+				// Traffic
+				String trafficState = traffic.get(iPoint);
+
+				if (trafficState == "Light") {
+					g2.setColor(Color.GREEN);
+				} else if (trafficState == "Moderate") {
+					g2.setColor(Color.YELLOW);
+				} else if (trafficState == "High") {
+					g2.setColor(Color.ORANGE);
+				} else if (trafficState == "Stopped") {
+					g2.setColor(Color.RED);
+				} else {
+					g2.setColor(Color.GRAY);
+				}
+
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON); // antialiasing on
+				Line2D road = new Line2D.Float(firstVertex.getXPos(),
+						firstVertex.getYPos(), secondVertex.getXPos(),
+						secondVertex.getYPos());
+				g2.draw(road);
+
+				// Weather
+
+				// Find midpoint of the road
+				double midPointX = (firstVertex.getXPos() + secondVertex
+						.getXPos()) / 2;
+				double midPointY = (firstVertex.getYPos() + secondVertex
+						.getYPos()) / 2;
+
+				String weatherState = weather.get(iPoint);
+
+				if (weatherState == "Storm") {
+					g2.setColor(Color.BLACK);
+				} else if (weatherState == "Snow") {
+					g2.setColor(Color.WHITE);
+				} else if (weatherState == "Hail") {
+					g2.setColor(Color.DARK_GRAY);
+				} else if (weatherState == "High Rain") {
+					g2.setColor(Color.GREEN);
+				} else if (weatherState == "Light Rain") {
+					g2.setColor(Color.BLUE);
+				} else if (weatherState == "Cloudy") {
+					g2.setColor(Color.GRAY);
+				} else if (weatherState == "Sunny") {
+					g2.setColor(Color.YELLOW);
+				}
+
+				g2.setStroke(new BasicStroke(4));
+				g2.draw(new Ellipse2D.Double(midPointX, midPointY, 10, 10));
+
+				iPoint++;
+			}
+
+		}
+
+	}
+
+	public ArrayList<Vertex> updateMapPoints() {
+		return this.mapVertexes;
+	}
+
+	public int updateNumberOfPoints() {
+		return this.numberOfPoints;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(mapImage, 0, 0, null);
+		if (mapVertexes != null) {
+			drawRoads(g);
+		}
+
+	}
 
 }

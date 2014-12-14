@@ -23,6 +23,9 @@ public class Vertex implements Comparable<Vertex> {
 	private ArrayList<Vertex> neighborVertexes;
     
 
+	/*
+	 * Vertex class constructor
+	 */
     public Vertex(int x, int y) {
         vertexID = currentID;
         currentID++;
@@ -31,33 +34,36 @@ public class Vertex implements Comparable<Vertex> {
 		this.neighborVertexes = new ArrayList<Vertex>();
     }
 
+    /*
+     * TODO what is this for?
+     */
     public int compareTo(Vertex other) {
         return Double.compare(minDistance, other.minDistance);
     }
     
     /*
-	 * 
+	 * Gets the X position of the vertex
 	 */
 	public int getXPos() {
 		return this.xPos;
 	}
 
 	/*
-	 * 
+	 * Sets the X position of the vertex
 	 */
 	public void setXPos(int x) {
 		this.xPos = x;
 	}
 
 	/*
-	 * 
+	 *  Gets the Y position of the vertex
 	 */
 	public int getYPos() {
 		return this.yPos;
 	}
 
 	/*
-	 * 
+	 *  Sets the Y position of the vertex
 	 */
 	public void setYPos(int y) {
 		this.yPos = y;
@@ -65,14 +71,14 @@ public class Vertex implements Comparable<Vertex> {
 	
 
 	/*
-	 * 
+	 *  Returns the neighbor vertexes
 	 */
 	public ArrayList<Vertex> getNeighborgVertexes() {
 		return this.neighborVertexes;
 	}
 	
-	/*
-	 * 
+	/* 
+	 * Check if a given vertex is the same as the vertex
 	 */
 	public boolean isTheSameAs(Vertex v)
 	{
@@ -86,7 +92,7 @@ public class Vertex implements Comparable<Vertex> {
 		return isTheSame;
 	}
 
-	/* *
+	/* 
 	 * Check if a given vertex is neighbor of the vertex.
 	 */
 	public boolean isNeighborVertex(Vertex v) {
@@ -117,6 +123,8 @@ public class Vertex implements Comparable<Vertex> {
 		Vertex newVertex = new Vertex(xPos, yPos);
 		
 		neighborVertexes.add(newVertex);
+		
+		// TODO add neighbor vertex to the adjacencies  
 	}
 
 }
