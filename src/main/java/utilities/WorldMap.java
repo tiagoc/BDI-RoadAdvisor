@@ -2,8 +2,6 @@ package utilities;
 
 import java.util.PriorityQueue;
 import java.util.List;
-import utilities.Node;
-import gui.WindowUI;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,7 +13,99 @@ import java.util.Collections;
 public class WorldMap {
 
     Vertex[] WorldMapGraph;
+	private int numberOfVertexes;
+	private ArrayList<Vertex> mapVertexes; 
 
+    public WorldMap() {
+		
+	}
+	
+    public void setNumberOfVertexes(int num)
+	{
+		this.numberOfVertexes = num;
+	}
+	
+	public void setMapVertexes(ArrayList<Vertex> m)
+	{
+		this.mapVertexes = m;
+	}
+	
+	/*
+	 * Returns the number of vertexes of the map.
+	 * 
+	 * @return Number of vertexes of the map.
+	 */
+	public int getNumberOfVertexes() {
+		return numberOfVertexes;
+	}
+	
+	/*
+	 * Returns the vertexes of the map.
+	 * 
+	 * @return Vertexes of the map.
+	 */
+	public ArrayList<Vertex> getMapVertexes()
+	{
+		return mapVertexes;
+	}
+	
+	/*
+	 * Returns the number of interest points on the map.
+	 * 
+	 * @return Number of interest points on the map.
+	 */
+	public void getNumberOfInterestPoints() {
+		
+		// TODO
+	}
+    
+	/*
+	 * Returns whether or not a road between only two given neighbor vertexes as a interest point.
+	 * 
+	 * @return True if there is a interest point between two neighbor vertexes.
+	 * point
+	 */
+	public boolean isInterestPoint(Vertex v1, Vertex v2) {
+		boolean interestPoint = false;
+
+		// Check if the vertexes are neighbors
+		if(v1.isNeighborVertex(v2))
+		{
+					// TODO - Check if there is an adjacency that is an interest point between the two vertexes
+                    // Check if there is a interest point between the nodes
+		}
+		
+		return interestPoint;
+	}
+
+	/*
+	 * Set two neighbor nodes as a interest point.
+	 * 
+	 * @return True if nodes where sucessfully added as a interest point.
+	 */
+	public boolean setInterestPoint(Vertex v1, Vertex v2) {
+		
+		boolean addedpoint = false;
+
+		/*ArrayList<Node> pairOfNodes = new ArrayList<Node>();
+		pairOfNodes.add(n1);
+		pairOfNodes.add(n2);
+
+		int previousSize = interestPoints.size();
+		interestPoints.add(pairOfNodes);
+
+		// If the point was added successfully
+		if(interestPoints.size() == (previousSize + 1))
+		{
+			addedpoint = true;
+		}*/
+		
+		// TODO
+		
+		return addedpoint;
+	}
+
+    
     /**
      * Compute using Djikstra's algorithm
      *
@@ -57,7 +147,7 @@ public class WorldMap {
     /*
      * Testing 
      * TODO remove
-     */
+     
     public static void main(String[] args) {
 
         Vertex v0 = new Vertex("Redvile");
@@ -93,4 +183,5 @@ public class WorldMap {
             System.out.println("Path: " + path);
         }
     }
+    */
 }

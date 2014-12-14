@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -10,15 +11,18 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import utilities.Node;
+
+import utilities.Vertex;
 import utilities.WorldMap;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import java.util.ArrayList;
 
-import utilities.InterestPoints;
+import javax.swing.JFrame;
+
+import java.util.ArrayList;
 
 
 
@@ -26,7 +30,7 @@ public class WindowUI {
 
     private JFrame frame;
     public JPanel panel_4;
-    public InterestPoints wm;
+    public WorldMap wm;
 
     /**
      * Launch the application.
@@ -202,21 +206,21 @@ public class WindowUI {
         panel_4.setLayout(gl_panel_4);
 
         /* TODO */
-        ArrayList<Node> mapNodes = getMapNodes();
-        int numberOfNodes = getNumberOfNodes();
+        ArrayList<Vertex> mapVertexes = getMapVertexes();
+        int numberOfVertexes = getNumberOfVertexes();
 
-        if (mapNodes.size() != numberOfNodes) {
-            System.out.print("Something went wrong with the nodes!");
-            System.out.print("Number of nodes: ");
-            System.out.print(numberOfNodes);
-            System.out.print("mapNodes size: ");
-            System.out.print(mapNodes.size());
+        if (mapVertexes.size() != numberOfVertexes) {
+            System.out.print("Something went wrong with the vertexes!");
+            System.out.print("Number of vertexes: ");
+            System.out.print(numberOfVertexes);
+            System.out.print("mapVertexes size: ");
+            System.out.print(mapVertexes.size());
 
-            wm.setNumberOfNodes(numberOfNodes);
-            wm.setMapNodes(mapNodes);
+            //wm.setNumberOfNodes(numberOfNodes);
+            //wm.setMapNodes(mapNodes);
         } else {
-            System.out.print("Number of nodes: ");
-            System.out.print(numberOfNodes);
+            System.out.print("Number of vertexes: ");
+            System.out.print(numberOfVertexes);
         }
         /* TODO */
 
@@ -224,19 +228,19 @@ public class WindowUI {
 
     public void update() {
         // Update map nodes
-        wm.setMapNodes(((MapPanel) panel_4).updateMapPoints());
-        wm.setNumberOfNodes(((MapPanel) panel_4).updateNumberOfNodes());
+        wm.setMapVertexes(((MapPanel) panel_4).updateMapPoints());
+        wm.setNumberOfVertexes(((MapPanel) panel_4).updateNumberOfPoints());
+    }
+
+    /* Get initial number of vertexes */
+    public ArrayList<Vertex> getMapVertexes() {
+        ArrayList<Vertex> mapVertexes = ((MapPanel) panel_4).getImagePoints();
+
+        return mapVertexes;
     }
 
     /* Get initial number of nodes */
-    public ArrayList<Node> getMapNodes() {
-        ArrayList<Node> mapNodes = ((MapPanel) panel_4).getImagePoints();
-
-        return mapNodes;
-    }
-
-    /* Get initial number of nodes */
-    public int getNumberOfNodes() {
+    public int getNumberOfVertexes() {
         int numberOfNodes = ((MapPanel) panel_4).getNumberOfPoints();
 
         return numberOfNodes;

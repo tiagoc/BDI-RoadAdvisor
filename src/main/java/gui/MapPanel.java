@@ -8,8 +8,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import utilities.Vertex;
 
 
 
@@ -22,17 +25,17 @@ public class MapPanel extends JPanel {
     private BufferedImage mapImage;
     private int numberOfPoints;
     private int numberOfClicks;
-    private Node firstNode;
-    private Node secondNode;
-    private ArrayList<Node> mapNodes;
+    private Vertex firstPoint;
+    private Vertex secondPoint;
+    private ArrayList<Vertex> mapVertexes;
     private boolean clickActive;
 
     public MapPanel() {
         try {
-            mapImage = ImageIO.read(new File("src/resources/mapa.png"));
+            mapImage = ImageIO.read(new File("resources/mapa.png"));
             numberOfPoints = 0;
             numberOfClicks = 0;
-            mapNodes = new ArrayList<Node>();
+            mapVertexes = new ArrayList<Vertex>();
             clickActive = false;
 
             addMouseListener(new MouseAdapter() {
@@ -102,10 +105,10 @@ public class MapPanel extends JPanel {
                         if (pointClicked) {
 
                             if (numberOfClicks == 0) {
-                                firstNode = new Node(xPos, yPos);
+                                firstPoint = new Vertex(xPos, yPos);
                                 numberOfClicks++;
                             } else if (numberOfClicks == 1) {
-                                secondNode = new Node(xPos, yPos);
+                                secondPoint = new Vertex(xPos, yPos);
                                 addRoad();
                             }
                         }
@@ -123,41 +126,41 @@ public class MapPanel extends JPanel {
 
     public void addRoad() {
         // Check if the chosen nodes are already neighbor nodes (there is a road between them)
-        if (!firstNode.isNeighbourgNode(secondNode)) {
-            for (int i = 0; i < mapNodes.size(); i++) {
+        if (!firstPoint.isNeighborVertex(secondPoint)) {
+            for (int i = 0; i < mapVertexes.size(); i++) {
 
-                Node currentNode = mapNodes.get(i);
+                Vertex currentVertex = mapVertexes.get(i);
 
-                if (currentNode.isTheSameAs(firstNode)) {
+                if (currentVertex.isTheSameAs(firstPoint)) {
                     // Set second node as neighbor of first node  
-                    currentNode.addNeighbourgNode(secondNode.getXPos(), secondNode.getYPos());
-                    mapNodes.set(i, currentNode);
-                } else if (currentNode.isTheSameAs(secondNode)) {
+                	currentVertex.addNeighborgVertex(secondPoint.getXPos(), secondPoint.getYPos());
+                    mapVertexes.set(i, currentVertex);
+                } else if (currentVertex.isTheSameAs(secondPoint)) {
                     // Set first node as neighbor of second node
-                    currentNode.addNeighbourgNode(firstNode.getXPos(), firstNode.getYPos());
-                    mapNodes.set(i, currentNode);
+                	currentVertex.addNeighborgVertex(firstPoint.getXPos(), firstPoint.getYPos());
+                    mapVertexes.set(i, currentVertex);
                 }
             }
         } else {
             // TODO window alert: "There is already a road between these points!"
         }
 
-        firstNode = null;
-        secondNode = null;
+        firstPoint = null;
+        secondPoint = null;
         numberOfClicks = 0;
         clickActive = false;
     }
 
-    public ArrayList<Node> getImagePoints() {
+    public ArrayList<Vertex> getImagePoints() {
         numberOfPoints = 0;
 
         for (int y = 0; y < 611; y++) {
             for (int x = 0; x < 760; x++) {
                 // If the pixel is white, it's a point/node of the map
                 if (mapImage.getRGB(x, y) == Color.white.getRGB()) {
-                    Node n = new Node(x, y);
+                    Vertex v = new Vertex(x, y);
 
-                    mapNodes.add(n);
+                    mapVertexes.add(v);
                     numberOfPoints = numberOfPoints + 1;
 
                     /* TODO TESTE */
@@ -173,7 +176,7 @@ public class MapPanel extends JPanel {
             }
         }
 
-        return mapNodes;
+        return mapVertexes;
     }
 
     public void choosePoints() {
@@ -187,15 +190,15 @@ public class MapPanel extends JPanel {
     public void drawRoads(Graphics g) {
     	// TODO draw without repeating roads (graph style)
 
-        for (Node currentNode : mapNodes) {
+        for (Vertex currentVertex : mapVertexes) {
 
-            ArrayList<Node> neiNodes = currentNode.getNeighborgNodes();
+            ArrayList<Vertex> neiVertexes = currentVertex.getNeighborgVertexes();
 
-            if (neiNodes.size() > 0) {
+            if (neiVertexes.size() > 0) {
 
                 // Draw a road between each neighbor node and the current node
-                for (Node neighbor : neiNodes) {
-                    g.drawLine(currentNode.getXPos(), currentNode.getYPos(), neighbor.getXPos(), neighbor.getYPos());
+                for (Vertex neighbor : neiVertexes) {
+                    g.drawLine(currentVertex.getXPos(), currentVertex.getYPos(), neighbor.getXPos(), neighbor.getYPos());
                 }
 
             }
@@ -204,11 +207,11 @@ public class MapPanel extends JPanel {
 
     }
 
-    public ArrayList<Node> updateMapPoints() {
-        return this.mapNodes;
+    public ArrayList<Vertex> updateMapPoints() {
+        return this.mapVertexes;
     }
 
-    public int updateNumberOfNodes() {
+    public int updateNumberOfPoints() {
         return this.numberOfPoints;
     }
 
@@ -216,7 +219,7 @@ public class MapPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(mapImage, 0, 0, null);
-        if (mapNodes.size() != 0) {
+        if (mapVertexes.size() != 0) {
             drawRoads(g);
         }
     }
