@@ -1,10 +1,15 @@
 package agents;
 
-import jadex.bdiv3.annotation.Belief;
+import jadex.bdiv3.BDIAgent;
+import jadex.bridge.service.RequiredServiceInfo;
+import jadex.bridge.service.annotation.Service;
+import jadex.bridge.service.search.SServiceProvider;
+import jadex.commons.future.IntermediateDefaultResultListener;
 import jadex.micro.annotation.Agent;
 import jadex.micro.annotation.AgentBody;
 import jadex.micro.annotation.Description;
-import jadex.platform.service.clock.Timer;
+import jadex.micro.annotation.ProvidedService;
+import jadex.micro.annotation.ProvidedServices;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,9 +27,11 @@ import utilities.Vertex;
 /**
  * The Worlds agents holds the world's information
  */
+@Service
 @Agent
 @Description("The world agent")
-public class WorldBDI {
+@ProvidedServices(@ProvidedService(type=ChatService.class))
+public class WorldBDI implements ChatService{
 
 	Vertex[] WorldMapGraph;
 	private int numberOfVertexes;
@@ -34,6 +41,9 @@ public class WorldBDI {
     private long currentTime;
     private String weather;
     private String traffic;
+    
+    @Agent
+    protected BDIAgent agent;
     
 	protected long time = System.currentTimeMillis();
 	
@@ -309,6 +319,49 @@ public class WorldBDI {
 		}
 		Collections.reverse(path);
 		return path;
+	}
+	
+	/* ************************************************************* */
+	
+	
+	/* ************************************************************* */
+	/* *                         Messaging                           */
+	/* ************************************************************* */
+	
+	public void sendMessage(final String messageToSend) {
+
+		SServiceProvider.getServices(agent.getServiceProvider(), ChatService.class, RequiredServiceInfo.SCOPE_PLATFORM)
+		.addResultListener(new IntermediateDefaultResultListener<ChatService>() {
+			public void intermediateResultAvailable(ChatService t) {
+				t.message(agent.getComponentIdentifier().getLocalName(), messageToSend);
+			}
+		});
+	}
+
+	public void message(String s0, String s1) {
+		
+		if(s1.equals("KILL"))
+		{
+			agent.killAgent();
+			
+		}else
+		if(!s0.equals(agent.getComponentIdentifier().getLocalName()))
+		{
+			if(checkMsgDest(s1))
+			{
+				//agent.dispatchTopLevelGoal(new AchieveGoal(s1)).get();
+				
+			}
+		}
+	}
+
+	public boolean checkMsgDest(String m)
+	{
+		String[] ms=m.split("-T-");
+		if(ms[0].equals(agent.getComponentIdentifier().getLocalName()))
+			return true;
+		else
+			return false;
 	}
 
 
