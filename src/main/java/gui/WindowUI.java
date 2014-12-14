@@ -200,6 +200,7 @@ public class WindowUI {
         panel_4.setLayout(gl_panel_4);
 
         /* TODO */
+        // Initialize map vertexes
         ArrayList<Vertex> mapVertexes = getMapVertexes();
         int numberOfVertexes = getNumberOfVertexes();
 
@@ -210,8 +211,8 @@ public class WindowUI {
             System.out.print("mapVertexes size: ");
             System.out.print(mapVertexes.size());
 
-            //wm.setNumberOfNodes(numberOfNodes);
-            //wm.setMapNodes(mapNodes);
+            wm.setNumberOfVertexes(numberOfVertexes);
+            wm.setMapVertexes(mapVertexes);
         } else {
             System.out.print("Number of vertexes: ");
             System.out.print(numberOfVertexes);

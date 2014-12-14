@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -33,6 +34,7 @@ public class MapPanel extends JPanel {
     private ArrayList<Vertex> mapVertexes;
     private boolean clickActive;
     private ArrayList<ArrayList<Vertex>> mapRoads;
+    private ArrayList<Boolean> interestPoints;
 
     public MapPanel() {
         try {
@@ -153,6 +155,7 @@ public class MapPanel extends JPanel {
                 pairOfVertexes.add(firstPoint);
                 pairOfVertexes.add(secondPoint);
                 mapRoads.add(pairOfVertexes);
+                
                 repaint();
         }
         } else {
@@ -202,22 +205,34 @@ public class MapPanel extends JPanel {
     }
 
     public void drawRoads(Graphics g) {
-    	// TODO draw without repeating roads (graph style)
 
     	if(mapRoads.size() > 0)
     	{
+    		
+    		int iPoint = 0;
+    		
         for (ArrayList<Vertex> currentRoad : mapRoads) {
 
             Vertex firstVertex = currentRoad.get(0);
             Vertex secondVertex = currentRoad.get(1);
 
             // Draw a road between the two vertexes    
-            //g.drawLine(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos());
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(4));
-            g2.setColor(Color.GRAY);
-            g2.draw(new Line2D.Float(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos()));
+            if(interestPoints.get(iPoint))
+            {
+            	g2.setColor(Color.RED);
             }
+            else
+            {
+            	g2.setColor(Color.GRAY);
+            }
+            
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // antialiasing on
+            g2.draw(new Line2D.Float(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos()));
+            
+            iPoint++;
+        }
 
         }
 
