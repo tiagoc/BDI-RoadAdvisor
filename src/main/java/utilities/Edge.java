@@ -9,12 +9,16 @@ public class Edge {
 
     public final Vertex target;
     public final double weight;
-    public Boolean isInterestPoint;
+    protected Boolean isInterestPoint;
+    protected int weatherState; // 0-6 Lower is better
+    protected int trafficState; // 0-4 Lower is better
 
-    public Edge(Vertex argTarget, double argWeight, Boolean IP) {
+    public Edge(Vertex argTarget, double argWeight, Boolean ip) {
         target = argTarget;
         weight = argWeight;
-        isInterestPoint = IP;
+        isInterestPoint = ip;
+        weatherState = 0;
+        trafficState = 0;
     }
     
     public Edge(Vertex argTarget, double argWeight) {
@@ -27,7 +31,16 @@ public class Edge {
     	return isInterestPoint;
     }
     
-    public void setInterestPoint(Boolean IP){
-    	isInterestPoint=IP;
+    public void setInterestPoint(Boolean ip){
+    	isInterestPoint = ip;
     }
+    
+    public void setWeatherState(int state){
+    	weatherState = state;
+    }
+    
+    public void setTrafficState(int state){
+    	trafficState = state;
+    }
+    
 }

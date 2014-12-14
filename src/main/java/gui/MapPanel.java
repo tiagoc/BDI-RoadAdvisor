@@ -249,7 +249,7 @@ public class MapPanel extends JPanel {
 
 	public void drawRoads(Graphics g) {
 
-		if (mapRoads.size() > 0) {
+		if (!mapRoads.isEmpty()) {
 
 			int iPoint = 0;
 
