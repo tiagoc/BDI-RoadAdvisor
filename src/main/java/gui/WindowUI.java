@@ -1,8 +1,8 @@
 package gui;
 
+import agents.WorldBDI;
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -11,17 +11,11 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-
 import utilities.Vertex;
-import utilities.WorldMap;
-
 import javax.swing.JButton;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
-
 import java.util.ArrayList;
 
 
@@ -30,7 +24,7 @@ public class WindowUI {
 
     private JFrame frame;
     public JPanel panel_4;
-    public WorldMap wm;
+    public WorldBDI wm;
 
     /**
      * Launch the application.
@@ -60,7 +54,7 @@ public class WindowUI {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        wm = new WorldMap();
+        wm = new WorldBDI();
         frame = new JFrame();
         frame.setBounds(100, 100, 822, 388);
         frame.setSize(1000, 700);

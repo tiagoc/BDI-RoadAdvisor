@@ -7,6 +7,7 @@ import java.util.ArrayList;
   * http://www.algolist.com/code/java/Dijkstra's_algorithm */
 
 
+
 /**
  * Vertex implementation
  */
@@ -118,18 +119,4 @@ public class Vertex implements Comparable<Vertex> {
 		neighborVertexes.add(newVertex);
 	}
 
-}
-
-/**
- * Weighted Edge 
- */
-class Edge {
-
-    public final Vertex target;
-    public final double weight;
-
-    public Edge(Vertex argTarget, double argWeight) {
-        target = argTarget;
-        weight = argWeight;
-    }
 }
