@@ -42,7 +42,7 @@ public class JarvasBDI {
      */
     @AgentBody
     public void body() {
-        System.out.println("Hello from Jarvas!");
+        System.out.println("Jarvas is running.");
        // agent.adoptPlan("findFastestPathPlan");
 
     }  

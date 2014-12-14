@@ -20,7 +20,7 @@ public class DriverBDI {
 	 */
 	@AgentBody
 	public void body() {
-		System.out.println("Hello from driver!");
+		System.out.println("Driver is running.");
 
 	}
 

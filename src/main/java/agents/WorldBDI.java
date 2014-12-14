@@ -6,8 +6,10 @@ import jadex.micro.annotation.AgentBody;
 import jadex.micro.annotation.Description;
 import jadex.platform.service.clock.Timer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -33,8 +35,25 @@ public class WorldBDI {
     private String weather;
     private String traffic;
     
-    
 	protected long time = System.currentTimeMillis();
+	
+	
+	protected void print_time(){
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+
+		Date resultdate = new Date(time);
+		System.out.print(sdf.format(resultdate));
+	}
+
+	
+	@AgentBody
+	public void body() {
+		System.out.println("World Agent is running");
+		System.out.println("Current time is: ");
+		print_time();
+
+	}
+	
 
     /* Time Period - "Day" or "Night" */
     public String getTimePeriod() {
@@ -174,15 +193,6 @@ public class WorldBDI {
 
     /* ************************************************************* */
 
-
-	
-
-	@AgentBody
-	public void body() {
-		System.out.println("Hello from world!");
-		System.out.println(time);
-
-	}
 
 	public void setNumberOfVertexes(int num) {
 		this.numberOfVertexes = num;
