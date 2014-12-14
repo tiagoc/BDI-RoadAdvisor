@@ -250,7 +250,7 @@ public class MapPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(mapImage, 0, 0, null);
-        if (mapVertexes.size() != 0) {
+        if (!mapVertexes.isEmpty()) {
             drawRoads(g);
         }
     }
