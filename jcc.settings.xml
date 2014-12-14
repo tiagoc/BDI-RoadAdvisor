@@ -41,8 +41,8 @@
 	<p0:properties __ID="21" type="window">
 		<p0:property __ID="22" type="width">1152</p0:property>
 		<p0:property __ID="23" type="height">739</p0:property>
-		<p0:property __ID="24" type="x">674</p0:property>
-		<p0:property __ID="25" type="y">263</p0:property>
+		<p0:property __ID="24" type="x">420</p0:property>
+		<p0:property __ID="25" type="y">93</p0:property>
 		<p0:property __ID="26" type="extendedState">0</p0:property>
 		<p0:property __ID="27" type="jccexit">ask</p0:property>
 		<p0:property __ID="28" type="saveonexit">true</p0:property>

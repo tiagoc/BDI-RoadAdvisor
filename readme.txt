@@ -1,5 +1,3 @@
-An example Maven project for Jadex.
-
 This project can be imported into IDEs like eclipse.
 
 
@@ -13,9 +11,7 @@ This project can be imported into IDEs like eclipse.
   specified in the POM before importing, but can also be changed later
   causing a reload of the dependencies in the IDE.
 
-* The 'src/main/java' folder contains a simple "Hello world!" agent.
-  As a default, compiled classes are placed by Maven in the
-  'target/classes' folder.
+* The 'src/main/java' folder contains the project's source code.
 
 * The 'default.settings.xml' is a preconfigured platform
   setting, that already includes the 'target/classes' folder
@@ -36,11 +32,3 @@ This project can be imported into IDEs like eclipse.
   "Run As" -> "Java Application".
   Select the 'Starter' class from package 'jadex.base'.
   Click "Run" and the Jadex platform should start.
-  
-* In the JCC, the 'HelloAgent' should be already selected.
-  Click "Start" to start the agent and check the console for the
-  output "Hello world!".
-  
-* Eclipse remembers the launch configuration. Therefore in the future,
-  you can simply select the "Starter" configuration from the run history
-  to start the platform.
