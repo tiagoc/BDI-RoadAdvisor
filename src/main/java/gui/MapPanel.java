@@ -1,9 +1,12 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +32,7 @@ public class MapPanel extends JPanel {
     private Vertex secondPoint;
     private ArrayList<Vertex> mapVertexes;
     private boolean clickActive;
+    private ArrayList<ArrayList<Vertex>> mapRoads;
 
     public MapPanel() {
         try {
@@ -36,6 +40,7 @@ public class MapPanel extends JPanel {
             numberOfPoints = 0;
             numberOfClicks = 0;
             mapVertexes = new ArrayList<Vertex>();
+            mapRoads = new ArrayList<ArrayList<Vertex>>();
             clickActive = false;
 
             addMouseListener(new MouseAdapter() {
@@ -104,10 +109,12 @@ public class MapPanel extends JPanel {
 
                         if (pointClicked) {
 
+                        	Vertex point = new Vertex(xPos, yPos);
+                        	
                             if (numberOfClicks == 0) {
                                 firstPoint = new Vertex(xPos, yPos);
                                 numberOfClicks++;
-                            } else if (numberOfClicks == 1) {
+                            } else if ((numberOfClicks == 1) && (!firstPoint.isTheSameAs(point))) {
                                 secondPoint = new Vertex(xPos, yPos);
                                 addRoad();
                             }
@@ -125,22 +132,29 @@ public class MapPanel extends JPanel {
     }
 
     public void addRoad() {
-        // Check if the chosen nodes are already neighbor nodes (there is a road between them)
+        // Check if the chosen vertexes are already neighbor vertexes (there is a road between them)
         if (!firstPoint.isNeighborVertex(secondPoint)) {
             for (int i = 0; i < mapVertexes.size(); i++) {
 
                 Vertex currentVertex = mapVertexes.get(i);
 
-                if (currentVertex.isTheSameAs(firstPoint)) {
-                    // Set second node as neighbor of first node  
+                /*if (currentVertex.isTheSameAs(firstPoint)) {
+                    // TODO Set second vertex as neighbor of first vertex  
                 	currentVertex.addNeighborgVertex(secondPoint.getXPos(), secondPoint.getYPos());
                     mapVertexes.set(i, currentVertex);
                 } else if (currentVertex.isTheSameAs(secondPoint)) {
-                    // Set first node as neighbor of second node
+                    // TODO Set first vertex as neighbor of second vertex
                 	currentVertex.addNeighborgVertex(firstPoint.getXPos(), firstPoint.getYPos());
                     mapVertexes.set(i, currentVertex);
-                }
-            }
+                }*/
+                
+                // Add new road to the roads of the map
+                ArrayList<Vertex> pairOfVertexes = new ArrayList<Vertex>();
+                pairOfVertexes.add(firstPoint);
+                pairOfVertexes.add(secondPoint);
+                mapRoads.add(pairOfVertexes);
+                repaint();
+        }
         } else {
             // TODO window alert: "There is already a road between these points!"
         }
@@ -190,17 +204,19 @@ public class MapPanel extends JPanel {
     public void drawRoads(Graphics g) {
     	// TODO draw without repeating roads (graph style)
 
-        for (Vertex currentVertex : mapVertexes) {
+    	if(mapRoads.size() > 0)
+    	{
+        for (ArrayList<Vertex> currentRoad : mapRoads) {
 
-            ArrayList<Vertex> neiVertexes = currentVertex.getNeighborgVertexes();
+            Vertex firstVertex = currentRoad.get(0);
+            Vertex secondVertex = currentRoad.get(1);
 
-            if (neiVertexes.size() > 0) {
-
-                // Draw a road between each neighbor node and the current node
-                for (Vertex neighbor : neiVertexes) {
-                    g.drawLine(currentVertex.getXPos(), currentVertex.getYPos(), neighbor.getXPos(), neighbor.getYPos());
-                }
-
+            // Draw a road between the two vertexes    
+            //g.drawLine(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos());
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(4));
+            g2.setColor(Color.GRAY);
+            g2.draw(new Line2D.Float(firstVertex.getXPos(), firstVertex.getYPos(), secondVertex.getXPos(), secondVertex.getYPos()));
             }
 
         }
