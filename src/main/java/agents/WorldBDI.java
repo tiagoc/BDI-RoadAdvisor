@@ -42,7 +42,7 @@ public class WorldBDI {
 		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
 
 		Date resultdate = new Date(time);
-		System.out.print(sdf.format(resultdate));
+		System.out.println(sdf.format(resultdate));
 	}
 
 	
