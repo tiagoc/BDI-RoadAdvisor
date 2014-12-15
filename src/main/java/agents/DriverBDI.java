@@ -127,7 +127,7 @@ public class DriverBDI implements ChatService{
 
 	public boolean checkMsgDest(String m)
 	{
-		String[] ms=m.split("-T-");
+		String[] ms=m.split("-|-");
 		if(ms[0].equals(agent.getComponentIdentifier().getLocalName()))
 			return true;
 		else

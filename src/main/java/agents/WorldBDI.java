@@ -61,6 +61,7 @@ public class WorldBDI implements ChatService{
 		System.out.println("World Agent is running");
 		System.out.println("Current time is: ");
 		print_time();
+		sendWorldStatus();
 
 	}
 	
@@ -292,6 +293,11 @@ public class WorldBDI implements ChatService{
 	/* *                         Messaging                           */
 	/* ************************************************************* */
 	
+	
+	public void sendWorldStatus(){
+		sendMessage(time + "-" + weather + "-" + traffic);
+	}
+	
 	public void sendMessage(final String messageToSend) {
 
 		SServiceProvider.getServices(agent.getServiceProvider(), ChatService.class, RequiredServiceInfo.SCOPE_PLATFORM)
@@ -308,7 +314,7 @@ public class WorldBDI implements ChatService{
 		{
 			agent.killAgent();
 			
-		}else
+		}/*else
 		if(!s0.equals(agent.getComponentIdentifier().getLocalName()))
 		{
 			if(checkMsgDest(s1))
@@ -316,12 +322,12 @@ public class WorldBDI implements ChatService{
 				//agent.dispatchTopLevelGoal(new AchieveGoal(s1)).get();
 				
 			}
-		}
+		}*/
 	}
 
 	public boolean checkMsgDest(String m)
 	{
-		String[] ms=m.split("-T-");
+		String[] ms=m.split("-|-");
 		if(ms[0].equals(agent.getComponentIdentifier().getLocalName()))
 			return true;
 		else

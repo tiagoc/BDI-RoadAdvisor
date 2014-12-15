@@ -124,6 +124,7 @@ public class JarvasBDI implements ChatService{
         @PlanBody
         public void FindFastestPathPlanBody() {      
             System.out.println("Testing fastestpath");
+            
         }
 
         @PlanPassed
@@ -231,34 +232,44 @@ public class JarvasBDI implements ChatService{
 		});
 	}
 
-	public void message(String s0, String s1) {
-		
-		if(s1.equals("KILL"))
-		{
-			agent.killAgent();
-			
-		}else
-			if(s1.equals("Driver is on.")){
-				System.out.println("Hello Driver, this is Jarvas. How may I be of service?");
-			}
-		if(!s0.equals(agent.getComponentIdentifier().getLocalName()))
-		{
-			if(checkMsgDest(s1))
-			{
-				
-				//agent.dispatchTopLevelGoal(new AchieveGoal(s1)).get();
-				
-			}
-		}
-	}
+    public void message(String s0, String s1) {
+
+    	if(s1.equals("KILL"))
+    	{
+    		agent.killAgent();
+
+    	}
+    	
+    	if(s0.equals("Driver"))
+    	{
+    		if(s1.equals("Driver is on.")){
+    			System.out.println("Hello Driver, this is Jarvas. How may I be of service?");
+    		}
+    	}
+
+    	if(s0.equals("World"))
+    	{
+    		System.out.println("Info: " + s1);
+    		WorldStatusUpdate(s1);
+    	}
+    }
 
 	public boolean checkMsgDest(String m)
 	{
-		String[] ms=m.split("-T-");
+		String[] ms=m.split("-|-");
 		if(ms[0].equals(agent.getComponentIdentifier().getLocalName()))
 			return true;
 		else
 			return false;
+	}
+	
+	public void WorldStatusUpdate(String m)
+	{
+		String[] parts = m.split("-");
+		currentTime = Long.valueOf(parts[0]);
+		weather = parts[1];
+		traffic = parts[2];
+		System.out.println(currentTime + " " + weather + " " + traffic);
 	}
 	
 	/* ************************************************************* */
