@@ -213,6 +213,8 @@ public class MapPanel extends JPanel {
 
 	public ArrayList<Vertex> getImagePoints() {
 		numberOfPoints = 0;
+		
+		System.out.print("Adding points to map...");
 
 		for (int y = 0; y < 611; y++) {
 			for (int x = 0; x < 760; x++) {
@@ -224,13 +226,13 @@ public class MapPanel extends JPanel {
 					numberOfPoints = numberOfPoints + 1;
 
 					/* TODO TESTE */
-					System.out.print("NewPoint\n");
+					/*System.out.print("NewPoint\n");
 					System.out.print("x: ");
 					System.out.print(x);
 					System.out.print("\n");
 					System.out.print("y: ");
 					System.out.print(y);
-					System.out.print("\n");
+					System.out.print("\n");*/
 					/* TODO TESTE */
 				}
 			}

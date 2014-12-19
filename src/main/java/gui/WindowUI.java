@@ -269,7 +269,7 @@ public class WindowUI {
             wm.setMapVertexes(mapVertexes);
         } else {
             System.out.print("Number of vertexes: ");
-            System.out.print(numberOfVertexes);
+            System.out.print(numberOfVertexes + "\n");
         }
         /* TODO */
 
