@@ -30,7 +30,7 @@
 	</p0:properties>
 	<p0:properties __ID="14" type="Starter">
 		<p0:property __ID="15" type="leftsplit_location">0.41774891774891776</p0:property>
-		<p0:property __ID="16" type="mainsplit_location">0.4400871459694989</p0:property>
+		<p0:property __ID="16" type="mainsplit_location">0.5228758169934641</p0:property>
 	</p0:properties>
 	<p0:properties __ID="17" type="Chat">
 		<p0:properties __ID="18" type="panelproperties">
@@ -41,8 +41,8 @@
 	<p0:properties __ID="21" type="window">
 		<p0:property __ID="22" type="width">946</p0:property>
 		<p0:property __ID="23" type="height">602</p0:property>
-		<p0:property __ID="24" type="x">672</p0:property>
-		<p0:property __ID="25" type="y">158</p0:property>
+		<p0:property __ID="24" type="x">960</p0:property>
+		<p0:property __ID="25" type="y">262</p0:property>
 		<p0:property __ID="26" type="extendedState">0</p0:property>
 		<p0:property __ID="27" type="jccexit">ask</p0:property>
 		<p0:property __ID="28" type="saveonexit">true</p0:property>

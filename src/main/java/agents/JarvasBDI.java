@@ -249,7 +249,7 @@ public class JarvasBDI implements ChatService{
 
     	if(s0.equals("World"))
     	{
-    		System.out.println("Info: " + s1);
+    		System.out.print("Info: ");
     		WorldStatusUpdate(s1);
     	}
     }

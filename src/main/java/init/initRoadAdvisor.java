@@ -82,7 +82,7 @@ public class initRoadAdvisor {
 		String classPath1 = "../target/classes/agents/WorldBDI.class";
 		@SuppressWarnings("unused")
 		IComponentIdentifier hw1 = cms.createComponent(classPath1, null).getFirstResult(sus);
-		System.out.println("shiet");
+		System.out.println("yay");
 		
 		/*init jarvas*/
 		String classPath2 = "../target/classes/agents/JarvasBDI.class";

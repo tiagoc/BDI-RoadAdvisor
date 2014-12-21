@@ -224,18 +224,21 @@ public class MapPanel extends JPanel {
 					numberOfPoints = numberOfPoints + 1;
 
 					/* TODO TESTE */
+					/*
 					System.out.print("NewPoint\n");
 					System.out.print("x: ");
 					System.out.print(x);
 					System.out.print("\n");
 					System.out.print("y: ");
 					System.out.print(y);
-					System.out.print("\n");
+					System.out.print("\n");*/
 					/* TODO TESTE */
 				}
 			}
 		}
-
+		
+		System.out.println("Added points do graph.");
+		
 		return mapVertexes;
 	}
 
