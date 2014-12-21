@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
 import utilities.Vertex;
 
 
@@ -27,16 +26,22 @@ import utilities.Vertex;
 @Agent
 @Description("The world agent")
 @ProvidedServices(@ProvidedService(type=ChatService.class))
-public class WorldBDI implements ChatService{
+public class WorldBDI implements ChatService {
 
 	Vertex[] WorldMapGraph;
-	private int numberOfVertexes;
+	private int numberOfVertexes = 0;
 	private ArrayList<Vertex> mapVertexes;
+	private ArrayList<String> currentWeather; // Current weather for the roads
+	private ArrayList<String> currentTraffic; // Current traffic for the roads
+
 	
-	private String timePeriod;
-    private long currentTime;
-    private String weather;
-    private String traffic;
+	private String timePeriod = null;
+    private long currentTime = 0;
+    private String weather = null;
+    private String traffic = null;
+    private long updateTime = 100; 
+    private boolean atDestination = false;
+    private int numInterestPts = 0;
     
     @Agent
     protected BDIAgent agent;
@@ -54,10 +59,13 @@ public class WorldBDI implements ChatService{
 	
 	@AgentBody
 	public void body() {
+		mapVertexes = new ArrayList<Vertex>();
+		currentWeather = new ArrayList<String>();
+		currentTraffic = new ArrayList<String>();
+		
 		System.out.println("World Agent is running");
 		System.out.println("Current time is: ");
 		print_time();
-		sendWorldStatus();
 
 	}
 	
@@ -70,7 +78,7 @@ public class WorldBDI implements ChatService{
     public void setTimePeriod(String timePeriod) {
         this.timePeriod = timePeriod;
     }
-
+    
     /* Current Time */
     public long getCurrentTime() {
         return currentTime;
@@ -80,16 +88,57 @@ public class WorldBDI implements ChatService{
         this.currentTime = currentTime;
     }
 
+    /* Current Weather */
+    public ArrayList<String> getCurrentWeather() {
+        return currentWeather;
+    }
+
+    public void setCurrentWeather(ArrayList<String> currentWeather) {
+        this.currentWeather = currentWeather;
+    }
+    
+    /* Current Traffic */
+    public ArrayList<String> getCurrentTraffic() {
+        return currentTraffic;
+    }
+
+    public void setCurrentTraffic(ArrayList<String> currentTraffic) {
+        this.currentTraffic = currentTraffic;
+    }
+    
+    
+    /* Update Roads Traffic and Weather States */
+    public void updateRoadsStates()
+    {
+    	for (int i = 0; i < currentWeather.size(); i++) {
+			
+    	Random rand = new Random();
+    	
+    	// The maximum index of roads is the maximum and 0 is the minimum
+        int road = rand.nextInt(currentWeather.size());
+    	
+    	
+    		updateWeather();
+    		currentWeather.set(road, weather);
+    	
+    	
+    		updateTraffic();
+    		currentTraffic.set(road, traffic);
+    
+    	
+    	}
+    }
+
     /* Weather */
     public boolean updateWeather() {
 
         Random rand = new Random();
 
-        // 100 is the maximum and 1 is the minimum
-        int n = rand.nextInt(100) + 1;
+        // 100 is the maximum and 0 is the minimum
+        int n = rand.nextInt(100) + 0;
 
         // Weather Probability
-        int weatherP = 1 / n;
+        double weatherP = (double) n / 100.0;
 
         boolean weatherUpdated = false;
 
@@ -100,6 +149,9 @@ public class WorldBDI implements ChatService{
             weatherUpdated = true;
         } else if (weatherP < 0.2) {
             this.weather = "Hail";
+            weatherUpdated = true;
+        } else if (weatherP < 0.3) {
+            this.weather = "Storm";
             weatherUpdated = true;
         } else if (weatherP < 0.4) {
             this.weather = "HighRain";
@@ -134,7 +186,7 @@ public class WorldBDI implements ChatService{
         int n = rand.nextInt(100) + 1;
 
         // Traffic Probability
-        int trafficP = 1 / n;
+        double trafficP = (double) n / 100.0;
 
         boolean trafficUpdated = false;
 
@@ -232,10 +284,19 @@ public class WorldBDI implements ChatService{
 	 * 
 	 * @return Number of interest points on the map.
 	 */
-	public void getNumberOfInterestPoints() {
+	public int getNumberOfInterestPoints() {
 
-		// TODO
+		return this.numInterestPts;
 	}
+	
+	/*
+	 * Sets the number of interest points on the map.
+	 */
+	public void setNumberOfInterestPoints(int pts) {
+
+		this.numInterestPts = pts;
+	}
+
 
 	/*
 	 * Returns whether or not a road between only two given neighbor vertexes as a interest point.
@@ -280,7 +341,23 @@ public class WorldBDI implements ChatService{
 		return addedpoint;
 	}
 
-	
+	 /* Update Time */
+    public long getUpdateTime() {
+        return this.updateTime;
+    }
+
+    public void setUpdateTime(long time) {
+        this.updateTime = time;
+    }
+    
+    /* At Destination */
+    public boolean getAtDestination() {
+        return this.atDestination;
+    }
+
+    public void setAtDestination(boolean ad) {
+        this.atDestination = ad;
+    }
 	
 	/* ************************************************************* */
 	
@@ -288,11 +365,6 @@ public class WorldBDI implements ChatService{
 	/* ************************************************************* */
 	/* *                         Messaging                           */
 	/* ************************************************************* */
-	
-	
-	public void sendWorldStatus(){
-		sendMessage(time + "-" + weather + "-" + traffic);
-	}
 	
 	public void sendMessage(final String messageToSend) {
 
@@ -310,7 +382,7 @@ public class WorldBDI implements ChatService{
 		{
 			agent.killAgent();
 			
-		}/*else
+		}else
 		if(!s0.equals(agent.getComponentIdentifier().getLocalName()))
 		{
 			if(checkMsgDest(s1))
@@ -318,12 +390,12 @@ public class WorldBDI implements ChatService{
 				//agent.dispatchTopLevelGoal(new AchieveGoal(s1)).get();
 				
 			}
-		}*/
+		}
 	}
 
 	public boolean checkMsgDest(String m)
 	{
-		String[] ms=m.split("-|-");
+		String[] ms=m.split("-T-");
 		if(ms[0].equals(agent.getComponentIdentifier().getLocalName()))
 			return true;
 		else

@@ -33,10 +33,10 @@ public class MapPanel extends JPanel {
 	private Vertex secondPoint;
 	private ArrayList<Vertex> mapVertexes;
 	private boolean clickActive;
-	private ArrayList<ArrayList<Vertex>> mapRoads;
-	private ArrayList<Boolean> interestPoints;
-	private ArrayList<String> weather;
-	private ArrayList<String> traffic;
+	public ArrayList<ArrayList<Vertex>> mapRoads;
+	public ArrayList<Boolean> interestPoints;
+	public ArrayList<String> weather;
+	public ArrayList<String> traffic;
 	public String chosenWeather;
 	public String chosenTraffic;
 	public String interestPoint;
@@ -213,8 +213,6 @@ public class MapPanel extends JPanel {
 
 	public ArrayList<Vertex> getImagePoints() {
 		numberOfPoints = 0;
-		
-		System.out.print("Adding points to map...");
 
 		for (int y = 0; y < 611; y++) {
 			for (int x = 0; x < 760; x++) {
@@ -226,13 +224,13 @@ public class MapPanel extends JPanel {
 					numberOfPoints = numberOfPoints + 1;
 
 					/* TODO TESTE */
-					/*System.out.print("NewPoint\n");
+					System.out.print("NewPoint\n");
 					System.out.print("x: ");
 					System.out.print(x);
 					System.out.print("\n");
 					System.out.print("y: ");
 					System.out.print(y);
-					System.out.print("\n");*/
+					System.out.print("\n");
 					/* TODO TESTE */
 				}
 			}
