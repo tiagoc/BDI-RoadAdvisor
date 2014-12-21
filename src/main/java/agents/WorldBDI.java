@@ -13,13 +13,9 @@ import jadex.micro.annotation.ProvidedServices;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Random;
 
-import utilities.Edge;
 import utilities.Vertex;
 
 

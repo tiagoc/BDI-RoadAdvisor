@@ -35,6 +35,7 @@ public class initRoadAdvisor {
 		})).start();
 
 		initJadex();
+		start_agents();
 		
 		while(true)
 		{
@@ -73,21 +74,23 @@ public class initRoadAdvisor {
 				IComponentManagementService.class, RequiredServiceInfo.SCOPE_PLATFORM).get(sus);
 	}
 	
-	
+
 	public static void start_agents()
 	{
 		/*init world*/
-		String classPath1 = "BDI-RoadAdvisor/bin/agents/WorldBDI.class";
+		System.out.println("yo");
+		String classPath1 = "../target/classes/agents/WorldBDI.class";
 		@SuppressWarnings("unused")
 		IComponentIdentifier hw1 = cms.createComponent(classPath1, null).getFirstResult(sus);
+		System.out.println("shiet");
 		
 		/*init jarvas*/
-		String classPath2 = "BDI-RoadAdvisor/bin/agents/JarvasBDI.class";
+		String classPath2 = "../target/classes/agents/JarvasBDI.class";
 		@SuppressWarnings("unused")
 		IComponentIdentifier hw2 = cms.createComponent(classPath2, null).getFirstResult(sus);
 	    
 		/*init driver*/
-		String classPath3 = "BDI-RoadAdvisor/bin/agents/DriverBDI.class";
+		String classPath3 = "../target/classes/agents/DriverBDI.class";
 		@SuppressWarnings("unused")
 		IComponentIdentifier hw3 = cms.createComponent(classPath3, null).getFirstResult(sus);
 	}
