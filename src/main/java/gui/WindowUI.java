@@ -250,7 +250,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			// TODO add interest point to edge
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("High");
     			// TODO add traffic to edge
     			((MapPanel) panel_4).addWeather("Sunny");
     			// TODO add weather to edge
@@ -283,7 +283,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Light Rain");
     			
     			firstVertex = new Vertex(126, 120);
                                  secondVertex = new Vertex(253, 106);
@@ -292,7 +292,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Moderate");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(253, 106);
@@ -322,7 +322,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Stopped");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(308, 141);
@@ -332,7 +332,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Moderate");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(308, 141);
@@ -343,7 +343,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("High Rain");
     			
     			firstVertex = new Vertex(296, 175);
                                  secondVertex = new Vertex(361, 124);
@@ -383,7 +383,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Storm");
     			
     			firstVertex = new Vertex(175, 164);
                                  secondVertex = new Vertex(127, 192);
@@ -403,7 +403,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Snow");
     			
     			firstVertex = new Vertex(86, 179);
                                  secondVertex = new Vertex(68, 162);
@@ -433,7 +433,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Cloudy");
     			
     			firstVertex = new Vertex(107, 239);
                                  secondVertex = new Vertex(127, 192);
@@ -452,7 +452,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Light");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(142, 250);
@@ -513,7 +513,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Light Rain");
     			
     			firstVertex = new Vertex(89, 274);
                                  secondVertex = new Vertex(130, 302);
@@ -532,7 +532,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("High");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(89, 274);
@@ -653,7 +653,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("High Rain");
     			
     			firstVertex = new Vertex(193, 330);
                                  secondVertex = new Vertex(342, 310);
@@ -701,7 +701,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Light");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(356, 447);
@@ -752,7 +752,7 @@ public class WindowUI {
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
     			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addWeather("Hail");
     			
     			firstVertex = new Vertex(426, 521);
                                  secondVertex = new Vertex(370, 494);
@@ -801,7 +801,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("High");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(292, 246);
@@ -841,7 +841,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("High");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(542, 125);
@@ -851,8 +851,8 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addTraffic("Moderate");
+    			((MapPanel) panel_4).addWeather("Light Rain");
     			
     			firstVertex = new Vertex(514, 165);
                                  secondVertex = new Vertex(599, 166);
@@ -881,8 +881,8 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addTraffic("High");
+    			((MapPanel) panel_4).addWeather("Snow");
     			
     			firstVertex = new Vertex(469, 82);
                                  secondVertex = new Vertex(657, 95);
@@ -951,7 +951,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Low");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(508, 263);
@@ -961,7 +961,7 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
+    			((MapPanel) panel_4).addTraffic("Low");
     			((MapPanel) panel_4).addWeather("Sunny");
     			
     			firstVertex = new Vertex(356, 265);
@@ -981,8 +981,8 @@ public class WindowUI {
     			pairOfVertexes.add(secondVertex);
     			((MapPanel) panel_4).addRoad(pairOfVertexes);
     			((MapPanel) panel_4).addInterestPoint(false);
-    			((MapPanel) panel_4).addTraffic("None");
-    			((MapPanel) panel_4).addWeather("Sunny");
+    			((MapPanel) panel_4).addTraffic("High");
+    			((MapPanel) panel_4).addWeather("Light Rain");
     			
     			 world.setCurrentWeather(((MapPanel) panel_4).weather);
                                   world.setCurrentTraffic(((MapPanel) panel_4).traffic);
