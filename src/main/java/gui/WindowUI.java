@@ -232,7 +232,7 @@ public class WindowUI {
                                  /* Add predefined map */
                                  
                                  // TODO Set second vertexes as neighbor of the first vertexes
-    			// TODO Set first vertexes as neighbor of the second vertexes
+                         		 // TODO Set first vertexes as neighbor of the second vertexes
                                  // TODO add all edges to map of edges
                                  // TODO add interest points to edges
                                  // TODO add traffic to edges

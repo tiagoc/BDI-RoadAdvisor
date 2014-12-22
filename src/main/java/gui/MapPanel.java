@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import utilities.Edge;
 import utilities.Vertex;
 
 public class MapPanel extends JPanel {
 
-	/**
-     *
-     */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage mapImage;
 	private int numberOfPoints;
@@ -41,6 +39,8 @@ public class MapPanel extends JPanel {
 	public String chosenTraffic;
 	public String interestPoint;
 
+
+	
 	public MapPanel() {
 		try {
 			mapImage = ImageIO.read(new File("resources/mapa.png"));
@@ -170,9 +170,18 @@ public class MapPanel extends JPanel {
 		// Check if the chosen vertexes are already neighbor vertexes (there is
 		// a road between them)
 		if (!firstPoint.isNeighborVertex(secondPoint)) {
+			
+			double distance = calculate_distance(firstPoint, secondPoint);
 
-			// TODO Set second vertex as neighbor of first vertex
-			// TODO Set first vertex as neighbor of second vertex
+			// Set second vertex as neighbor of first vertex
+		
+			firstPoint.adjacencies = new Edge[]{new Edge(secondPoint, distance)};
+			firstPoint.addNeighborgVertex(secondPoint.getXPos(), secondPoint.getYPos());
+			
+			// Set first vertex as neighbor of second vertex
+			
+			secondPoint.adjacencies = new Edge[]{new Edge(firstPoint, distance)};
+			secondPoint.addNeighborgVertex(firstPoint.getXPos(), firstPoint.getYPos());
 
 			// Add new road to the roads of the map
 			ArrayList<Vertex> pairOfVertexes = new ArrayList<Vertex>();
@@ -360,6 +369,14 @@ public class MapPanel extends JPanel {
 	{
 		weather.add(w);
 	}
+	
+	public double calculate_distance(Vertex point1, Vertex point2){
+		
+		double result = Math.sqrt(Math.pow((point1.getXPos()-point2.getXPos()), 2)+Math.pow((point1.getYPos()-point2.getYPos()), 2));
+		
+		return result;	
+	}
+	
 
 	@Override
 	protected void paintComponent(Graphics g) {
