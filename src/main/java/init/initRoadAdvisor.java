@@ -24,7 +24,7 @@ public class initRoadAdvisor {
 	private static WindowUI gui=null;
 	
 	
-	public static void main(String Args[])
+	public static void main(String args[])
 	{
 		(new Thread(new Runnable(){
 

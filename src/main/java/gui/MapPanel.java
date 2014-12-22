@@ -223,7 +223,7 @@ public class MapPanel extends JPanel {
 					mapVertexes.add(v);
 					numberOfPoints = numberOfPoints + 1;
 
-					/* TODO TESTE */
+					/* TESTING */
 					/*
 					System.out.print("NewPoint\n");
 					System.out.print("x: ");
@@ -232,12 +232,12 @@ public class MapPanel extends JPanel {
 					System.out.print("y: ");
 					System.out.print(y);
 					System.out.print("\n");*/
-					/* TODO TESTE */
+					/* TESTING */
 				}
 			}
 		}
 		
-		System.out.println("Added points do graph.");
+		System.out.println("Added points to graph.");
 		
 		return mapVertexes;
 	}
@@ -267,14 +267,7 @@ public class MapPanel extends JPanel {
 
 				// Interest Points
 				if (interestPoints.get(iPoint)) {
-					/*
-					 * float[] dashingPattern1 = {2f, 2f}; Stroke stroke1 = new
-					 * BasicStroke(2f, BasicStroke.CAP_BUTT,
-					 * BasicStroke.JOIN_MITER, 1.0f, dashingPattern1, 2.0f);
-					 * float[] dashingPattern2 = {10f, 4f}; Stroke stroke2 = new
-					 * BasicStroke(4f, BasicStroke.CAP_BUTT,
-					 * BasicStroke.JOIN_MITER, 1.0f, dashingPattern2, 0.0f);
-					 */
+					
 					float[] dashingPattern3 = { 10f, 10f, 1f, 10f };
 					Stroke stroke3 = new BasicStroke(4f,
 							BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,
@@ -346,6 +339,26 @@ public class MapPanel extends JPanel {
 
 	public int updateNumberOfPoints() {
 		return this.numberOfPoints;
+	}
+	
+	public void addRoad(ArrayList<Vertex> pairOfVertexes)
+	{
+		mapRoads.add(pairOfVertexes);
+	}
+	
+	public void addInterestPoint(Boolean ip)
+	{
+		interestPoints.add(ip);
+	}
+	
+	public void addTraffic(String t)
+	{
+		traffic.add(t);
+	}
+	
+	public void addWeather(String w)
+	{
+		weather.add(w);
 	}
 
 	@Override
