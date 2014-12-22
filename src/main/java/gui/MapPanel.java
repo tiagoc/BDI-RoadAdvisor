@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BasicStroke;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,8 +22,12 @@ import javax.swing.JPanel;
 import utilities.Edge;
 import utilities.Vertex;
 
+
 public class MapPanel extends JPanel {
 
+	/**
+     *
+     */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage mapImage;
 	private int numberOfPoints;
@@ -38,9 +43,13 @@ public class MapPanel extends JPanel {
 	public String chosenWeather;
 	public String chosenTraffic;
 	public String interestPoint;
-
-
+	Boolean beginningPoint;
+	Boolean endPoint;
+	Boolean choosingPoints;
+	public Vertex beginningVertex;
+	public Vertex endVertex;
 	
+
 	public MapPanel() {
 		try {
 			mapImage = ImageIO.read(new File("resources/mapa.png"));
@@ -56,6 +65,11 @@ public class MapPanel extends JPanel {
 			chosenWeather = "Snow";
 			chosenTraffic = "None";
 			interestPoint = "Yes";
+			beginningVertex = null;
+			endVertex = null;
+			choosingPoints = false;
+			beginningPoint = false;
+			endPoint = false;
 
 			addMouseListener(new MouseAdapter() {
 
@@ -77,20 +91,64 @@ public class MapPanel extends JPanel {
 						 * B - Black pixel. W - White pixel.
 						 */
 						boolean pointClicked = false;
+						int trueXPos = 0;
+						int trueYPos = 0;
 
 						for (int y = 0; y < 5; y++) {
 							for (int x = 0; x < 5; x++) {
 
-								if (((mapImage.getRGB(xPos, yPos))
-										| (mapImage.getRGB(xPos - x, yPos - y))
-										| (mapImage.getRGB(xPos - x, yPos))
-										| (mapImage.getRGB(xPos, yPos - y))
-										| (mapImage.getRGB(xPos + x, yPos + y))
-										| (mapImage.getRGB(xPos + x, yPos - y)) | (mapImage
-											.getRGB(xPos - x, yPos + y))) == (Color.white
-										.getRGB())) {
-									/* TODO TESTE */
-									System.out.print("y: ");
+								if(mapImage.getRGB(xPos, yPos) == Color.white.getRGB())
+								{
+									trueXPos = xPos;
+									trueYPos = yPos;
+									pointClicked = true;
+								}
+								else
+									if(mapImage.getRGB(xPos - x, yPos - y) == Color.white.getRGB())
+									{
+										trueXPos = xPos - x;
+										trueYPos = yPos - y;
+										pointClicked = true;
+									}
+									else
+										if(mapImage.getRGB(xPos - x, yPos) == Color.white.getRGB())
+										{
+											trueXPos = xPos - x;
+											trueYPos = yPos;
+											pointClicked = true;
+										}
+										else
+											if(mapImage.getRGB(xPos, yPos - y) == Color.white.getRGB())
+											{
+												trueXPos = xPos;
+												trueYPos = yPos - y;
+												pointClicked = true;
+											}
+											else
+												if(mapImage.getRGB(xPos + x, yPos + y) == Color.white.getRGB())
+												{
+													trueXPos = xPos + x;
+													trueYPos = yPos + y;
+													pointClicked = true;
+												}
+												else
+													if(mapImage.getRGB(xPos + x, yPos - y) == Color.white.getRGB())
+													{
+														trueXPos = xPos + x;
+														trueYPos = yPos - y;
+														pointClicked = true;
+													}
+													else
+														if(mapImage.getRGB(xPos - x, yPos + y) == Color.white.getRGB())
+														{
+															trueXPos = xPos - x;
+															trueYPos = yPos + y;
+															pointClicked = true;
+														}
+								
+								
+									/* TESTING */
+									/*System.out.print("y: ");
 									System.out.print(y);
 									System.out.print("\n");
 									System.out.print("x: ");
@@ -130,24 +188,39 @@ public class MapPanel extends JPanel {
 											.print("mapImage.getRGB(xPos-x, yPos+y)");
 									System.out.print(mapImage.getRGB(xPos - x,
 											yPos + y));
-									System.out.print("\n");
-									/* TODO TESTE */
-
-									pointClicked = true;
-								}
+									System.out.print("\n");*/
+									/* TESTING */
+									
+						
+								
 							}
 						}
 
-						if (pointClicked) {
+						if(pointClicked == true && beginningPoint == true && choosingPoints)
+						{
+							beginningVertex = new Vertex(trueXPos, trueYPos);
+							beginningPoint = false;
+						}else
+							if(pointClicked == true && endPoint == true && choosingPoints)
+							{
+								endVertex = new Vertex(trueXPos, trueYPos);
+								if(beginningVertex != null)
+								{
+									choosingPoints = false;
+								}
+								endPoint = false;
+								clickActive = false;
+							}else
+							if (pointClicked && choosingPoints == false) {
 
-							Vertex point = new Vertex(xPos, yPos);
+							Vertex point = new Vertex(trueXPos, trueYPos);
 
 							if (numberOfClicks == 0) {
-								firstPoint = new Vertex(xPos, yPos);
+								firstPoint = new Vertex(trueXPos, trueYPos);
 								numberOfClicks++;
 							} else if ((numberOfClicks == 1)
 									&& (!firstPoint.isTheSameAs(point))) {
-								secondPoint = new Vertex(xPos, yPos);
+								secondPoint = new Vertex(trueXPos, trueYPos);
 
 								// Add road to map
 								addRoad();
@@ -170,7 +243,7 @@ public class MapPanel extends JPanel {
 		// Check if the chosen vertexes are already neighbor vertexes (there is
 		// a road between them)
 		if (!firstPoint.isNeighborVertex(secondPoint)) {
-			
+
 			double distance = calculate_distance(firstPoint, secondPoint);
 
 			// Set second vertex as neighbor of first vertex
@@ -182,6 +255,7 @@ public class MapPanel extends JPanel {
 			
 			secondPoint.adjacencies = new Edge[]{new Edge(firstPoint, distance)};
 			secondPoint.addNeighborgVertex(firstPoint.getXPos(), firstPoint.getYPos());
+		
 
 			// Add new road to the roads of the map
 			ArrayList<Vertex> pairOfVertexes = new ArrayList<Vertex>();
@@ -341,6 +415,11 @@ public class MapPanel extends JPanel {
 		}
 
 	}
+	
+	public double calculate_distance(Vertex point1, Vertex point2){
+		double result = Math.sqrt(Math.pow((point1.getXPos()-point2.getXPos()), 2)+Math.pow((point1.getYPos()-point2.getYPos()), 2));
+		return result;	
+	}
 
 	public ArrayList<Vertex> updateMapPoints() {
 		return this.mapVertexes;
@@ -370,13 +449,54 @@ public class MapPanel extends JPanel {
 		weather.add(w);
 	}
 	
-	public double calculate_distance(Vertex point1, Vertex point2){
+	public void drawBEPoints(Graphics g)
+	{
+		// Change the color of the beginning and end points 
+		Graphics2D g2 = (Graphics2D) g;
 		
-		double result = Math.sqrt(Math.pow((point1.getXPos()-point2.getXPos()), 2)+Math.pow((point1.getYPos()-point2.getYPos()), 2));
-		
-		return result;	
-	}
+		// Beginning point (White)
 	
+		if(beginningPoint)
+		{
+		
+		for (int y = 0; y < 5; y++) {
+			for (int x = 0; x < 5; x++) {
+						
+				mapImage.setRGB(beginningVertex.getXPos(), beginningVertex.getYPos(), Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos() - x, beginningVertex.getYPos() - y, Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos() - x, beginningVertex.getYPos(), Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos(), beginningVertex.getYPos() - y, Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos() + x, beginningVertex.getYPos() + y, Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos() + x, beginningVertex.getYPos() - y, Color.WHITE.getRGB());
+				mapImage.setRGB(beginningVertex.getXPos() - x, beginningVertex.getYPos() + y, Color.WHITE.getRGB());
+			
+			
+			}
+		}
+		}
+		
+		// End point (Red)
+		if(endPoint)
+		{
+		
+			for (int y = 0; y < 5; y++) {
+				for (int x = 0; x < 5; x++) {
+								
+					mapImage.setRGB(endVertex.getXPos(), endVertex.getYPos(), Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos() - x, endVertex.getYPos() - y, Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos() - x, endVertex.getYPos(), Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos(), endVertex.getYPos() - y, Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos() + x, endVertex.getYPos() + y, Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos() + x, endVertex.getYPos() - y, Color.RED.getRGB());
+					mapImage.setRGB(endVertex.getXPos() - x, endVertex.getYPos() + y, Color.RED.getRGB());
+				
+				
+				}
+			}
+		}
+		
+			
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -384,6 +504,7 @@ public class MapPanel extends JPanel {
 		g.drawImage(mapImage, 0, 0, null);
 		if (mapVertexes != null) {
 			drawRoads(g);
+			drawBEPoints(g);
 		}
 
 	}

@@ -38,7 +38,7 @@ public class WorldBDI implements ChatService {
     private long currentTime = 0;
     private String weather = null;
     private String traffic = null;
-    private long updateTime = 100; 
+    private long updateTime = 10000; 
     private boolean atDestination = false;
     private int numInterestPts = 0;
     
